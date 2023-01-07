@@ -1,0 +1,20 @@
+{
+    "name": "panxu/phpfunc",
+    "description": "test project",
+    "type": "library",
+    "require": {
+        "php": ">=7.3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Panxu\\Phpfunc\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "panxu",
+            "email": "panxu71@163.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
