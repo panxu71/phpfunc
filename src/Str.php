@@ -1,11 +1,11 @@
 <?php
 
-namespace phpfunc;
+namespace funcs;
 
 class Str
 {
     static public function test()
     {
-        return "test";
+        return "test1";
     }
 }
