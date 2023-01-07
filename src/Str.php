@@ -51,10 +51,11 @@ class Str
         $isspec      && $numbers .= $specialChars;
         $numbers     = explode(',', $numbers);
         shuffle($numbers); //打乱数组顺序
-        $length      = $length > count($numbers) ? count($numbers) : $length;
+        // $length      = $length > count($numbers) ? count($numbers) : $length;
         $string      = '';
         for ($i = 0; $i < $length; $i++) {
             $string .= $numbers[mt_rand(0, count($numbers) - 1)]; //随机取出一位
+            !$i && $string == "0" && $string += 1; //保证不以0开头
         }
         return $string;
     }
