@@ -1,13 +1,14 @@
 {
     "name": "panxu/phpfunc",
-    "description": "test project",
+    "description": "test library",
     "type": "library",
     "require": {
         "php": ">=7.3.3"
     },
+    "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Panxu\\Phpfunc\\": "src/"
+            "phpfunc\\": "src/"
         }
     },
     "authors": [
@@ -16,6 +17,5 @@
             "email": "panxu71@163.com"
         }
     ],
-    "license": "MIT",
     "minimum-stability": "dev"
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace panxu;
+namespace phpfunc;
 
 class Str
 {
