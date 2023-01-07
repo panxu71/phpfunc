@@ -17,5 +17,6 @@
             "email": "panxu71@163.com"
         }
     ],
-    "minimum-stability": "stable"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
