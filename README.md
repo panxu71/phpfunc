@@ -123,6 +123,16 @@ Date::quarter();
 //     [end] => 2023-03-31 23:59:59
 // )
 
+// 返回指定年份指定月份开始和结束日期
+month(int $month = 0, int $year = 0, bool $isTimestamp = false)
+// 使用案例：
+Date::month();
+// Array
+// (
+//     [start] => 2023-01-01 00:00:00
+//     [end] => 2023-01-31 23:59:59
+// )
+
 // 返回指定年份指定周开始和结束时间
 week(int $week = 0, int $year = 0, bool $isTimestamp = false)
 // 使用案例：

@@ -29,6 +29,25 @@ class Date
     }
 
     /**
+     * 返回指定年份指定月份开始和结束日期
+     *
+     * @param integer $month 指定月份，默认当前月份，范围（1-12）
+     * @param integer $year 指定年份，默认本年度
+     * @param boolean $isTimestamp
+     * @return void
+     */
+    public static function month(int $month = 0, int $year = 0, bool $isTimestamp = false): array
+    {
+        $year          = intval($year ?: date("Y"));
+        $month         = intval($month || $month < 1 || $month > 12 ?: date("m"));
+        $start         = mktime(0, 0, 0, $month, 1, $year);
+        $end           = strtotime("+1 month", $start) - 1;
+        $data['start'] = $isTimestamp ? $start : date('Y-m-d H:i:s', $start);
+        $data['end']   = $isTimestamp ? $end : date('Y-m-d H:i:s', $end);
+        return $data;
+    }
+
+    /**
      * 返回指定季度开始和结束时间
      *
      * @param integer $season 指定季度，默认当前季度，范围（1-4）
@@ -38,7 +57,8 @@ class Date
      */
     public static function quarter(int $season = 0, int $year = 0, bool $isTimestamp = false): array
     {
-        $season        = !$season ? ceil((date('n')) / 3) : $season; //获取季度
+        $year          = intval($year ?: date("Y"));
+        $season        = intval($season || $season < 1 || $season > 4 ?: ceil((date('n')) / 3));
         $start         = mktime(0, 0, 0, $season * 3 - 3 + 1, 1, (int)($year ? $year : date("Y"))); //季度开始
         $end           = strtotime("+3 month", $start) - 1; //季度结束
         $data['start'] = $isTimestamp ? $start : date('Y-m-d H:i:s', $start);
