@@ -12,24 +12,19 @@ namespace func\tools;
 
 class Date
 {
-    protected static $timeStart = "00:00:00";
-    protected static $timeEnd   = "23:59:59";
-
     /**
      * 返回指定年份开始和结束日期 
      *
-     * @param string $year 指定年份，默认本年度
+     * @param int $year 指定年份，默认本年度
      * @param boolean $isTimestamp 是否时间戳，默认日期格式
      * @return array
      */
-    public static function year(string $year = "", bool $isTimestamp = false): array
+    public static function year(int $year = 0, bool $isTimestamp = false): array
     {
-        $time          = time();
-        $year          = $year != "" ? $year : date("Y", $time);
-        $start         = date('Y-m-d', strtotime($year . "-1-1")) . " " . self::$timeStart; //本年开始
-        $end           = date('Y-m-d', strtotime($year . "-12-31")) . " " . self::$timeEnd; //本年结束
-        $data['start'] = $isTimestamp ? strtotime($start) : $start;
-        $data['end']   = $isTimestamp ? strtotime($end) : $end;
+        $start         = mktime(0, 0, 0, 1, 1, (int)($year ? $year : date("Y"))); //年度开始
+        $end           = strtotime("+1 year", $start) - 1; //年度开始
+        $data['start'] = $isTimestamp ? $start : date('Y-m-d H:i:s', $start);
+        $data['end']   = $isTimestamp ? $end : date('Y-m-d H:i:s', $end);
         return $data;
     }
 
