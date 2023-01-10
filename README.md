@@ -80,6 +80,16 @@ Str::randomCardId(); // 340421200511098459
 randomFloat($num = 2, $min = 0, $max = 10)
 // 使用案例：
 Str::randomFloat(); // 9.18
+
+// 返回随机省份或列表（中国共计34个省级行政区，包括23个省、5个自治区、4个直辖市、2个特别行政区）
+randomProvince(bool $isIndex = false, bool $isAll = false)
+// 使用案例：
+Str::randomProvince();
+// Array
+// (
+//     [index] => 14
+//     [province] => 山东省
+// )
 ```
 
 ### 常用工具类
