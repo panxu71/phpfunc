@@ -41,7 +41,7 @@ class Date
      * @param boolean $isTimestamp 是否时间戳，默认日期格式
      * @return array
      */
-    public function quarter(int $season = 0, int $year = 0, bool $isTimestamp = false): array
+    public static function quarter(int $season = 0, int $year = 0, bool $isTimestamp = false): array
     {
         $season        = !$season ? ceil((date('n')) / 3) : $season; //获取季度
         $start         = mktime(0, 0, 0, $season * 3 - 3 + 1, 1, (int)($year ? $year : date("Y"))); //季度开始
