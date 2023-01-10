@@ -1,10 +1,16 @@
 # phpfunc
 
+====
+
 [![License](https://img.shields.io/packagist/l/panxu/phpfunc.svg?style=flat-square)](LICENSE)
 [![Php Version](https://img.shields.io/badge/php-%3E=7.3-brightgreen.svg?maxAge=2592000)](https://packagist.org/packages/panxu/phpfunc)
 [![Packagist Version](https://img.shields.io/packagist/v/panxu/phpfunc)](https://packagist.org/packages/panxu/phpfunc)
+[![star](https://gitee.com/panxu11/phpfunc/badge/star.svg?theme=white)](https://gitee.com/panxu11/phpfunc/stargazers)
+[![fork](https://gitee.com/panxu11/phpfunc/badge/fork.svg?theme=white)](https://gitee.com/panxu11/phpfunc/members)
 
 一个简洁小巧且功能完善的PHP常用工具集。
+
+[![panxu/phpfunc](https://gitee.com/panxu11/phpfunc/widgets/widget_card.svg?colors=ffffff,1e252b,323d47,455059,d7deea,99a0ae)](https://gitee.com/panxu11/phpfunc)
 
 ### 安装教程
 
