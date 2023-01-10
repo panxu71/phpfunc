@@ -45,4 +45,25 @@ class Date
         $data['end']   = $isTimestamp ? $end : date('Y-m-d H:i:s', $end);
         return $data;
     }
+
+    /**
+     * 返回指定年份指定周开始和结束时间
+     *
+     * @param integer $week 指定周，默认当前
+     * @param integer $year 指定年，默认本年
+     * @param boolean $isTimestamp 是否时间戳，默认日期格式
+     * @return void
+     */
+    public static function week(int $week = 0, int $year = 0, bool $isTimestamp = false)
+    {
+        $year = intval($year ?: date("Y"));
+        $week = intval($week ?: date("W"));
+        ($week > date("W", mktime(0, 0, 0, 12, 28, $year)) || $week <= 0) && $week = 1;
+        $week < 10 && $week = '0' . $week; // 注意：一定要转为 2位数，否则计算出错
+        $start         = strtotime($year . 'W' . $week);
+        $end           = strtotime("+1 week", $start) - 1;
+        $data['start'] = $isTimestamp ? $start : date('Y-m-d H:i:s', $start);
+        $data['end']   = $isTimestamp ? $end : date('Y-m-d H:i:s', $end);
+        return $data;
+    }
 }

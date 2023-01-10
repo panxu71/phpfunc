@@ -98,6 +98,43 @@ Str::randomProvince();
 | :-----:   |  :-----:  | :----:  | ----  |
 | Date      |日期处理  |  tools |   常用日期处理方法     |
 
+#### 日期类工具（Date）
+
+```php
+use func\tools\Date;
+
+// 返回指定年份开始和结束日期 
+year(int $year = 0, bool $isTimestamp = false)
+// 使用案例：
+Date::year();
+Array
+// (
+//     [start] => 2023-01-01 00:00:00
+//     [end] => 2023-12-31 23:59:59
+// )
+
+// 返回指定季度开始和结束时间
+quarter(int $season = 0, int $year = 0, bool $isTimestamp = false)
+// 使用案例：
+Date::quarter();
+// Array
+// (
+//     [start] => 2023-01-01 00:00:00
+//     [end] => 2023-03-31 23:59:59
+// )
+
+// 返回指定年份指定周开始和结束时间
+week(int $week = 0, int $year = 0, bool $isTimestamp = false)
+// 使用案例：
+Date::week();
+// Array
+// (
+//     [start] => 2023-01-09 00:00:00
+//     [end] => 2023-01-15 23:59:59
+// )
+
+```
+
 ### 版本更新
 
 |版本 |日期 |说明  |
