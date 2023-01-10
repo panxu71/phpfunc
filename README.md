@@ -1,4 +1,4 @@
-# panxu\phpfunc
+# phpfunc
 
 [![License](https://img.shields.io/packagist/l/panxu/phpfunc.svg?style=flat-square)](LICENSE)
 [![Php Version](https://img.shields.io/badge/php-%3E=7.3-brightgreen.svg?maxAge=2592000)](https://packagist.org/packages/panxu/phpfunc)
@@ -23,18 +23,18 @@ composer remove panxu/phpfunc
 ### 常用函数
 
 |类名        |处理类型  |  功能说明  |
-| --------   | ----- | ----  |
+| -----   | ----- | ----  |
 | Str      | 字符串 | 提供常用字符串快捷方法     |
 
 ### 常用工具类
 
 |类名         |处理类型  |所属工具类 |  功能说明  |
-| --------   |  :-----:  | :----:  |
+| :-----:   |  :-----:  | :----:  | ----  |
 | Date      |日期处理  |  tools |   常用日期处理方法     |
 
 ### 版本更新
 
 |版本 |日期 |说明  |
-| --------   | ----- | ----  |
+|:----:   | :----: | ----  |
 | 0.1.1      | 2023-01-09 | 新增工具类tools     |
 | 0.1.0      | 2023-01-07 | 发布第一个版本     |
