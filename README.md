@@ -43,6 +43,11 @@ randomString($length = 6, $isupper = true, $islower = false, $isspec = false)
 // 使用案例：
 Str::randomString(10); // iffpndyh2t
 
+// 返回全局唯一UUID
+uuid(bool $isConnector = true, bool $isMark = true, bool $islower = false)
+// 使用案例：
+Str::uuid();// {b86cc5ed-0736-4d7a-b5f6-e0aa52d3a5df}
+
 //中文转拼音 (utf8版,gbk转utf8也可用)
 pinyin($str, $ret_format = 'all', $placeholder = '_', $allow_chars = '/[a-zA-Z\d ]/')
 // 使用案例：
@@ -93,6 +98,7 @@ Str::randomProvince();
 //     [index] => 14
 //     [province] => 山东省
 // )
+
 ```
 
 ### 常用工具类
