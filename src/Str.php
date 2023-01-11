@@ -296,4 +296,21 @@ class Str
         $data['province']          = $province[$index];
         return !$isAll ? $data : $province;
     }
+
+    /**
+     * 字符串转数组(支持中文英文混合字符串)
+     *
+     * @param boolean $string 字符串
+     * @param boolean $charset 字符集编码
+     * @return array
+     */
+    public static function stringToArray(string $string, string $charset = "utf-8"): array
+    {
+        $length = mb_strlen($string, 'utf-8');
+        $stringArray = [];
+        for ($i = 0; $i < $length; $i++) {
+            $stringArray[] = mb_substr($string, $i, 1, 'utf-8');
+        }
+        return $stringArray;
+    }
 }

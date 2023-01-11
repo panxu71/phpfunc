@@ -100,6 +100,17 @@ Str::randomProvince();
 //     [province] => 山东省
 // )
 
+// 字符串转数组(支持中文英文混合字符串)
+stringToArray(string $string, string $charset = "utf-8")
+// 使用案例：
+Str::stringToArray("张a三");
+// Array
+// (
+//     [0] => 张
+//     [1] => a
+//     [2] => 三
+// )
+
 ```
 
 ### 常用工具类
