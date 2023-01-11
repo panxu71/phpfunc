@@ -6,6 +6,7 @@ phpfunc
 [![Packagist Version](https://img.shields.io/packagist/v/panxu/phpfunc)](https://packagist.org/packages/panxu/phpfunc)
 [![star](https://gitee.com/panxu11/phpfunc/badge/star.svg?theme=gray)](https://gitee.com/panxu11/phpfunc/stargazers)
 [![fork](https://gitee.com/panxu11/phpfunc/badge/fork.svg?theme=dark)](https://gitee.com/panxu11/phpfunc/members)
+[![blog](https://img.shields.io/badge/blog-https%3A%2F%2Fpanxu.net-brightgreen)](https://panxu.net)
 
 一个简洁小巧且功能完善的PHP常用工具集。
 
