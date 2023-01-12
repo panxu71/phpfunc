@@ -115,7 +115,7 @@ Str::stringToArray("张a三");
 // 类型($type) [1姓名,2出生日期,3手机号,4身份证,5银行卡号,6电子邮箱]
 dataMasking(string $string = "", int $type = 0, array $index = [], string $replace = "*")
 // 使用案例：
-Str::dataMasking($this->dataMasking(Str::randomName()['username'], 1);//司马**
+Str::dataMasking(Str::randomName()['username'], 1);//司马**
 Str::dataMasking("1990/10/11", 2);//19**/**/**
 Str::dataMasking(self::randomPhone(), 3);//181****9191
 Str::dataMasking(self::randomCardId(), 4);//51152720******2457
