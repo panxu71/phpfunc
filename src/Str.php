@@ -313,4 +313,84 @@ class Str
         }
         return $stringArray;
     }
+
+    /**
+     * 数据脱敏 支持指定类型及自定义规则脱敏 (更新中)
+     * [1姓名,2出生日期,3手机号,4身份证,5银行卡号,6电子邮箱]
+     * @param string $string
+     * @param integer $type
+     * @param array $index
+     * @param string $replace
+     * @return string
+     */
+    public static function dataMasking(string $string = "", int $type = 0, array $index = [], string $replace = "*"): string
+    {
+        // [姓名]     前1或2  只显示姓，支持单姓和复姓<例子：欧阳**,王**>
+        // [出生日期] 前2     只显示年份，支持任意日期格式<例子：19**-**-**,19******,1990/**/**>
+        // [手机号]   前3后4  手机号只显示网络识别号+用户号码<例子：137****4574>
+        // [身份证]   前6后3  隐藏出生年份后两位+月+日 <例子：41032420******7191>
+        // [银行卡号] 前6后4  其他用星号隐藏每位1个星号<例子:6222600**********1234>
+        // [电子邮箱] @之前   邮箱前缀仅显示第一个字母，前缀其他隐藏，用星号代替，@及后面的地址显示<例子:g**@163.com>
+
+        // [地址] 只显示到地区，不显示详细地址；我们要对个人信息增强保护<例子：北京市海淀区****>(后续更新)
+        if (!$type && !count($index)) {
+            return $string;
+        }
+
+        $strArray = self::stringToArray($string); // 字符串转数组
+        if (!is_array($strArray) || $length = !count($strArray)) {
+            return $string;
+        }
+
+        // 姓名
+        if ($type == 1) {
+            $digit = count($strArray) > 3 ? 1 : 0;
+            foreach ($strArray as $k => $v) {
+                $k > $digit && array_push($index, $k);
+            }
+        }
+
+        $number = 0;
+        // 出生日期
+        if ($type == 2) {
+            foreach ($strArray as $k => $v) {
+                if (is_numeric($v)) {
+                    $number++;
+                    ($number == 3 || $number == 4 || $number == 5 || $number == 6 || $number == 7 || $number == 8) && array_push($index, $k);
+                }
+            }
+        }
+
+        // 手机号
+        if ($type == 3) {
+            $len = strpos($string, '+86') !== false ? mb_strlen('+86', 'utf-8') : 1; // 判断是否+86
+            foreach ($strArray as $k => $v) {
+                if (is_numeric($v)) {
+                    $number++;
+                    ($number == 3 + $len || $number == 4 + $len || $number == 5 + $len || $number == 6 + $len) && array_push($index, $k);
+                }
+            }
+        }
+
+        $type == 4 && $index = [8, 9, 10, 11, 12, 13]; // 身份证
+
+        $type == 5 && $index = [6, 7, 8, 9, 10, 11, 12, 13]; // 银行卡
+
+        // 邮箱
+        if ($type == 6) {
+            foreach ($strArray as $k => $v) {
+                // if (!$k) continue;
+                if ($v == "@") break;
+                array_push($index, $k);
+            }
+        }
+
+        if ($type > 6 || !count($index)) {
+            return $string;
+        }
+        foreach ($index as $v) {
+            $strArray[$v] = $replace;
+        }
+        return implode("", $strArray) ?? "";
+    }
 }

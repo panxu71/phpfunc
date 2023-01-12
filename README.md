@@ -111,6 +111,18 @@ Str::stringToArray("张a三");
 //     [2] => 三
 // )
 
+// 数据脱敏 支持指定类型及自定义规则脱敏 (更新中)
+// 类型($type) [1姓名,2出生日期,3手机号,4身份证,5银行卡号,6电子邮箱]
+dataMasking(string $string = "", int $type = 0, array $index = [], string $replace = "*")
+// 使用案例：
+Str::dataMasking($this->dataMasking(Str::randomName()['username'], 1);//司马**
+Str::dataMasking("1990/10/11", 2);//19**/**/**
+Str::dataMasking(self::randomPhone(), 3);//181****9191
+Str::dataMasking(self::randomCardId(), 4);//51152720******2457
+Str::dataMasking("6225365271562822", 5);//622536********22
+Str::dataMasking(Str::randomEmail(), 6); //******@qq.com
+// 自定义规则
+Str::dataMasking("内蒙古锡林郭勒盟二连浩特市", 0, [4, 5, 6, 7, 8]); //内蒙古锡*****连浩特市
 ```
 
 ### 常用工具类
