@@ -393,4 +393,66 @@ class Str
         }
         return implode("", $strArray) ?? "";
     }
+
+    /**
+     * 金额转换为中文大写金额
+     *
+     * @param float $amount    金额
+     * @param boolean $isround 是否四舍五入,默认是
+     * @param integer $type    补整类型,0:到角补整;1:到元补整
+     * @return void
+     */
+    public static function amountConvert(float $amount = 0.00, bool $isround = true, int $type = 0)
+    {
+        if (!is_numeric($amount)) {
+            return "要转换的金额只能为数字!";
+        }
+
+        $amount = sprintf("%.2f", $isround ? round($amount, 2) : $amount);
+
+        if ($amount == 0) {
+            return "零元整";
+        }
+
+        if ($amount < 0) {
+            return "要转换的金额不能为负数!";
+        }
+
+        if (strlen("$amount") > 12) { // 金额不能超过万亿,即12位
+            return "要转换的金额不能为万亿及更高金额!";
+        }
+
+        $digital      = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖']; // 预定义中文转换的数组
+        $position     = ['仟', '佰', '拾', '亿', '仟', '佰', '拾', '万', '仟', '佰', '拾', '元']; // 预定义单位转换的数组
+        $amountArray  = explode('.', "$amount"); // 将金额的数值字符串拆分成数组
+        $integerArr   = str_split($amountArray[0], 1); // 将整数位的数值字符串拆分成数组
+
+        // 将整数部分替换成大写汉字
+        $result           = '';
+        $integerArrLength = count($integerArr);     // 整数位数组的长度
+        $positionLength   = count($position);         // 单位数组的长度
+        for ($i = 0; $i < $integerArrLength; $i++) {
+            if ($integerArr[$i] != 0) { // 如果数值不为0,则正常转换
+                $result = $result . $digital[$integerArr[$i]] . $position[$positionLength - $integerArrLength + $i];
+            } else { // 如果数值为0, 且单位是亿,万,元这三个的时候,则直接显示单位
+                if (($positionLength - $integerArrLength + $i + 1) % 4 == 0) {
+                    $result = $result . $position[$positionLength - $integerArrLength + $i];
+                }
+            }
+        }
+
+        // 如果小数位也要转换
+        if ($type == 0) {
+            $decimalArray = str_split($amountArray[1], 1); // 将小数位的数值字符串拆分成数组
+            if ($decimalArray[0] != 0) { // 将角替换成大写汉字. 如果为0,则不替换
+                $result = $result . $digital[$decimalArray[0]] . '角';
+            }
+            if ($decimalArray[1] != 0) { // 将分替换成大写汉字. 如果为0,则不替换
+                $result = $result . $digital[$decimalArray[1]] . '分';
+            }
+        } else {
+            $result = $result . '整';
+        }
+        return $result;
+    }
 }

@@ -123,6 +123,11 @@ Str::dataMasking("6225365271562822", 5);//622536********22
 Str::dataMasking(Str::randomEmail(), 6); //******@qq.com
 // 自定义规则
 Str::dataMasking("内蒙古锡林郭勒盟二连浩特市", 0, [4, 5, 6, 7, 8]); //内蒙古锡*****连浩特市
+
+// 金额转换为中文大写金额
+amountConvert(float $amount = 0.00, bool $isround = true, int $type = 0)
+// 使用案例：
+Str::amountConvert(10000000.34, false);//壹仟万元叁角肆分
 ```
 
 ### 常用工具类
