@@ -18,7 +18,7 @@ class Arr
      * @param  array $keyName 父id字段名
      * @return array 
      */
-    public static function tree($list = [], $keyName = "pid")
+    public static function tree(array $list = [], string $keyName = "pid"): array
     {
         $data = array_column($list, null, 'id');
         foreach ($data as $k => $v) {
@@ -28,6 +28,6 @@ class Arr
                 $tree[] = &$data[$v['id']]; //根节点直接把地址放到新数组中
             }
         }
-        return $tree;
+        return $tree ?? [];
     }
 }
