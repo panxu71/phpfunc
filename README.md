@@ -139,7 +139,7 @@ use func\Str;
 // 无限极分类(引用的方式)
 tree($list = [], $keyName = "pid")
 // 使用案例：
-Str::tree([
+Arr::tree([
     ['id' => 1, 'name' => "广东省", 'pid' => 0],
     ['id' => 2, 'name' => "深圳市", 'pid' => 1],
     ['id' => 3, 'name' => "龙华区", 'pid' => 2],
