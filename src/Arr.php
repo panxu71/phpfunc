@@ -34,7 +34,7 @@ class Arr
     /**
      * 无限极分类(引用的方式)
      * @param  array $list 分类数据
-     * @param  array $keyName 父id字段名
+     * @param  string $keyName 父id字段名
      * @return array 
      */
     public static function tree(array $list = [], string $keyName = "pid"): array
@@ -48,5 +48,25 @@ class Arr
             }
         }
         return $tree ?? [];
+    }
+    /**
+     * 无限极分类(递归方式)
+     * @param  array  $data   数据源
+     * @param  integer $pid   父ID
+     * @param  integer $level 分级标识
+     * @param  array $keyName 父id字段名
+     * @return array
+     */
+    public static function classify(array $data, int $id = 0, int $level = 0, string $keyName = "pid"): array
+    {
+        $list = []; //子孙数组
+        foreach ($data as $v) {
+            if ($v[$keyName] == $id) {
+                $v['level'] = $level;
+                $list[] = $v;
+                $list = array_merge($list, self::classify($data, $v['id'], $level + 1));
+            }
+        }
+        return $list ?? [];
     }
 }
