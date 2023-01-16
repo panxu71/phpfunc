@@ -136,6 +136,12 @@ Str::amountConvert(10000000.34, false);//壹仟万元叁角肆分
 ```php
 use func\Str;
 
+// 比较数组是否相等
+equal(array $arr1, array $arr2)
+// 使用案例：
+Arr::equal([['id' => 1, 'name' => "广东省", 'pid' => 0]],[['id' => 1, 'name' => "广东省", 'pid' => 1]])
+// false
+
 // 无限极分类(引用的方式)
 tree($list = [], $keyName = "pid")
 // 使用案例：

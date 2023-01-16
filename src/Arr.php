@@ -13,6 +13,25 @@ namespace func;
 class Arr
 {
     /**
+     * 比较数组是否相等
+     *
+     * @param array $arr1
+     * @param array $arr2
+     * @return boolean
+     */
+    public static function equal(array $arr1, array $arr2): bool
+    {
+        if (count($arr1) != count($arr2)) {
+            return false;
+        }
+        //strcmp区分大小写 strcasecmp二进制安全比较字符串（不区分大小写）
+        if (strcmp(serialize($arr1), serialize($arr2)) == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * 无限极分类(引用的方式)
      * @param  array $list 分类数据
      * @param  array $keyName 父id字段名
