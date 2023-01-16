@@ -1,4 +1,3 @@
-[TOCM]
 phpfunc
 ====
 
