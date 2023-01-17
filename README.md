@@ -296,7 +296,7 @@ Arr::classify([
 
 ```php
 // 获取指定节点的所有父节点
-familyTree(array $data, int $id = 0, int $level = 0, string $keyName = "pid")
+familyTree(array $data, int $nodeId, string $keyName = "pid")
 // 使用案例：
 Arr::familyTree([
     ['id' => 1, 'name' => "广东省", 'pid' => 0],
