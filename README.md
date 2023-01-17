@@ -36,9 +36,10 @@ composer remove panxu/phpfunc
 use func\Str;
 ```
 
-#### 字符串截取(msubstr)（支持中文和其他编码）
+#### 字符串截取(msubstr)
 
 ```php
+// 支持中文和其他编码
 msubstr($str, $start = 0, $length = 15, $charset = "utf-8", $suffix = true)
 Str::msubstr("phpfunc是一个简洁小巧且功能完善的PHP常用工具集",0,7); // phpfunc
 ```
