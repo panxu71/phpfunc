@@ -168,6 +168,25 @@ amountConvert(float $amount = 0.00, bool $isround = true, int $type = 0)
 Str::amountConvert(10000000.34, false);//壹仟万元叁角肆分
 ```
 
+#### 返回随机颜色(randomColor)
+
+```php
+// columns 0英文名|1中文名|2十六进制|3RGB
+randomColor(int $num = 2, array $columns = [2])
+Str::randomColor("我是中国人");
+// Array
+// (
+//     [0] => Array
+//         (
+//             [0] => #7B68EE
+//         )
+//     [1] => Array
+//         (
+//             [0] => #808080
+//         )
+// )
+```
+
 ### 数组函数说明
 
 ```php
