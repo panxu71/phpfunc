@@ -98,4 +98,22 @@ class Arr
         }
         return array_reverse($tree) ?? [];
     }
+
+    /**
+     * 获取最次一级节点
+     *
+     * @param array $data  数据源
+     * @param string $keyName 节点字段名
+     * @return array
+     */
+    public static function subordinate(array $data = [], string $keyName = "pid"): array
+    {
+        $ids = array_column($data, $keyName);
+        foreach ($data as $v) {
+            if (!in_array($v['id'], $ids)) {
+                $tree[] = $v;
+            }
+        }
+        return $tree ?? [];
+    }
 }

@@ -336,6 +336,36 @@ Arr::familyTree([
 // )
 ```
 
+#### subordinate()
+
+```php
+// 获取最次一级节点
+subordinate(array $data = [], string $keyName = "pid")
+// 使用案例：
+Arr::subordinate([
+    ['id' => 1, 'name' => "广东省", 'pid' => 0],
+    ['id' => 2, 'name' => "深圳市", 'pid' => 1],
+    ['id' => 3, 'name' => "龙华区", 'pid' => 2],
+    ['id' => 7, 'name' => "湖南省", 'pid' => 0],
+    ['id' => 8, 'name' => "长沙市", 'pid' => 7],
+    ['id' => 9, 'name' => "望城区", 'pid' => 8],
+]);
+// Array
+// (
+//     [0] => Array
+//         (
+//             [id] => 3
+//             [name] => 龙华区
+//             [pid] => 2
+//         )
+//     [1] => Array
+//         (
+//             [id] => 9
+//             [name] => 望城区
+//             [pid] => 8
+//         )
+// )
+
 ### 常用工具类
 
 |类名         |处理类型  |所属工具类 |  功能说明  |
