@@ -69,4 +69,33 @@ class Arr
         }
         return $list ?? [];
     }
+
+    /**
+     * 获取家族树节点
+     * @param  array   $list 所有节点
+     * @param  integer $cid  指定节点
+     * @return array         返回指定节点的所有父节点
+     */
+
+    /**
+     * 获取指定节点的所有父节点
+     *
+     * @param array $data     数据源
+     * @param integer $nodeId 节点ID
+     * @param string $keyName 父id字段名
+     * @return array
+     */
+    public static function familyTree(array $data, int $nodeId, string $keyName = "pid"): array
+    {
+        if (!$nodeId) return [];
+        while ($nodeId > 0) {
+            foreach ($data as $v) {
+                if ($v['id'] == $nodeId) {
+                    $tree[]  = $v;
+                    $nodeId  = $v[$keyName];
+                }
+            }
+        }
+        return array_reverse($tree) ?? [];
+    }
 }

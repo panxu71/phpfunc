@@ -292,6 +292,50 @@ Arr::classify([
 // )
 ```
 
+#### familyTree()
+
+```php
+// 获取指定节点的所有父节点
+familyTree(array $data, int $id = 0, int $level = 0, string $keyName = "pid")
+// 使用案例：
+Arr::familyTree([
+    ['id' => 1, 'name' => "广东省", 'pid' => 0],
+    ['id' => 2, 'name' => "深圳市", 'pid' => 1],
+    ['id' => 3, 'name' => "龙华区", 'pid' => 2],
+    ['id' => 4, 'name' => "民治街道", 'pid' => 3],
+]);
+// Array
+// (
+//     [0] => Array
+//         (
+//             [id] => 1
+//             [name] => 广东省
+//             [pid] => 0
+//         )
+
+//     [1] => Array
+//         (
+//             [id] => 2
+//             [name] => 深圳市
+//             [pid] => 1
+//         )
+
+//     [2] => Array
+//         (
+//             [id] => 3
+//             [name] => 龙华区
+//             [pid] => 2
+//         )
+
+//     [3] => Array
+//         (
+//             [id] => 4
+//             [name] => 民治街道
+//             [pid] => 3
+//         )
+// )
+```
+
 ### 常用工具类
 
 |类名         |处理类型  |所属工具类 |  功能说明  |
