@@ -358,6 +358,28 @@ Arr::changeToSingle([[1, 2, 3], [4, 5, 6], [7, 8, 9 => ['a', 'b' => ['c', 'd']]]
 // )
 ```
 
+#### 返回多个数组的笛卡尔积(cartesianProduct)
+
+```php
+cartesianProduct(array $array = [])
+Arr::cartesianProduct([['透气', '防滑'], ['37码', '38码', '39码'], ['男款', '女款']]);
+// Array
+// (
+//     [0] => 透气,37码,男款
+//     [1] => 透气,37码,女款
+//     [2] => 透气,38码,男款
+//     [3] => 透气,38码,女款
+//     [4] => 透气,39码,男款
+//     [5] => 透气,39码,女款
+//     [6] => 防滑,37码,男款
+//     [7] => 防滑,37码,女款
+//     [8] => 防滑,38码,男款
+//     [9] => 防滑,38码,女款
+//     [10] => 防滑,39码,男款
+//     [11] => 防滑,39码,女款
+// )
+```
+
 ### 常用工具类
 
 |类名         |处理类型  |所属工具类 |  功能说明  |
@@ -370,26 +392,22 @@ Arr::changeToSingle([[1, 2, 3], [4, 5, 6], [7, 8, 9 => ['a', 'b' => ['c', 'd']]]
 use func\tools\Date;
 ```
 
-#### year()
+#### 返回指定年份开始和结束日期(year)
 
 ```php
-// 返回指定年份开始和结束日期 
 year(int $year = 0, bool $isTimestamp = false)
-// 使用案例：
 Date::year();
-Array
+// Array
 // (
 //     [start] => 2023-01-01 00:00:00
 //     [end] => 2023-12-31 23:59:59
 // )
 ```
 
-#### quarter()
+#### 返回指定季度开始和结束时间(quarter)
 
 ```php
-// 返回指定季度开始和结束时间
 quarter(int $season = 0, int $year = 0, bool $isTimestamp = false)
-// 使用案例：
 Date::quarter();
 // Array
 // (
@@ -398,12 +416,10 @@ Date::quarter();
 // )
 ```
 
-#### month()
+#### 返回指定年份指定月份开始和结束日期(month)
 
 ```php
-// 返回指定年份指定月份开始和结束日期
 month(int $month = 0, int $year = 0, bool $isTimestamp = false)
-// 使用案例：
 Date::month();
 // Array
 // (
@@ -412,12 +428,10 @@ Date::month();
 // )
 ```
 
-#### week()
+#### 返回指定年份指定周开始和结束时间(week)
 
 ```php
-// 返回指定年份指定周开始和结束时间
 week(int $week = 0, int $year = 0, bool $isTimestamp = false)
-// 使用案例：
 Date::week();
 // Array
 // (

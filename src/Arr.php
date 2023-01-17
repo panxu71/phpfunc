@@ -131,4 +131,28 @@ class Arr
         });
         return $return;
     }
+
+    /**
+     * 返回多个数组的笛卡尔积
+     *
+     * @param array $array
+     * @return array
+     */
+    public static function cartesianProduct(array $array = []): array
+    {
+        $result = [];
+        $arrLen = count($array);
+        for ($i = 0, $count = $arrLen; $i < $count - 1; $i++) {
+            $i == 0 && $result = $array[$i];
+            $tmp = [];
+            // 结果与下一个集合计算笛卡尔积
+            foreach ($result as $res) {
+                foreach ($array[$i + 1] as $set) {
+                    $tmp[] = $res . $set;
+                }
+            }
+            $result = $tmp;
+        }
+        return $result ?? [];
+    }
 }
