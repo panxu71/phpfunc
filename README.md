@@ -36,48 +36,40 @@ composer remove panxu/phpfunc
 use func\Str;
 ```
 
-#### msubstr()
+#### 字符串截取(msubstr)（支持中文和其他编码）
 
 ```php
-// 字符串截取，支持中文和其他编码
 msubstr($str, $start = 0, $length = 15, $charset = "utf-8", $suffix = true)
-// 使用案例：
 Str::msubstr("phpfunc是一个简洁小巧且功能完善的PHP常用工具集",0,7); // phpfunc
 ```
 
-#### randomString()
+#### 返回指定范围随机字符串(randomString)
 
 ```php
-// 返回随机字符串
+// 
 randomString($length = 6, $isupper = true, $islower = false, $isspec = false)
-// 使用案例：
 Str::randomString(10); // iffpndyh2t
 ```
 
-#### uuid()
+#### 返回全局唯一UUID(uuid)
 
 ```php
-// 返回全局唯一UUID
 uuid(bool $isConnector = true, bool $isMark = true, bool $islower = false)
-// 使用案例：
 Str::uuid();// {b86cc5ed-0736-4d7a-b5f6-e0aa52d3a5df}
 ```
 
-#### pinyin()
+#### 中文转拼音(pinyin)
 
 ```php
-//中文转拼音 (utf8版,gbk转utf8也可用)
+// utf8版,gbk转utf8也可用
 pinyin($str, $ret_format = 'all', $placeholder = '_', $allow_chars = '/[a-zA-Z\d ]/')
-// 使用案例：
 Str::pinyin("我是中国人"); // wo shi zhong guo ren
 ```
 
-#### randomName()
+#### 返回指定范围内的随机姓名(randomName)
 
 ```php
-// 生成某个范围内的随机姓名
 randomName($sex = 0, $issurname = null, $iscompound = true)
-// 使用案例：
 Str::randomName();
 // Array
 // (
@@ -87,57 +79,48 @@ Str::randomName();
 // )
 ```
 
-#### randomEmail()
+#### 返回随机邮箱(randomEmail)
 
 ```php
-//随机邮箱 支持邮箱类型[126,163,139,189,qq,wo,sina,sohu,aliyun,foxmail,outlook]
+// 支持邮箱类型[126,163,139,189,qq,wo,sina,sohu,aliyun,foxmail,outlook]
 randomEmail($type = "", $len = 6)
-// 使用案例：
 Str::randomEmail("sohu"); // 4wxbno@sohu.com
 ```
 
-#### randomDate()
+#### 返回指定范围内的随机时间(randomDate)
 
 ```php
-// 生成某个范围内的随机时间
 randomDate($begin = "", $end = "", $now = true)
-// 使用案例：
 Str::randomDate(); // 2023-01-10 11:57:23
 ```
 
-#### randomPhone()
+#### 返回随机手机号码(randomPhone)
 
 ```php
-// 生成随机手机号码 (默认随机;0,移动;1,联通;2,电信)
+// 默认随机;0,移动;1,联通;2,电信
 randomPhone($operator = null)
-// 使用案例：
 Str::randomPhone(); // 18952373556
 ```
 
-#### randomCardId()
+#### 返回随机身份证号(randomCardId)
 
 ```php
-// 生成随机身份证号（可验证）
 randomCardId()
-// 使用案例：
-Str::randomCardId(); // 340421200511098459
+Str::randomCardId(); // 340421200511098459（可验证）
 ```
 
-#### randomFloat()
+#### 返回随机金额或小数(randomFloat)
 
 ```php
-// 随机金额或小数
 randomFloat($num = 2, $min = 0, $max = 10)
-// 使用案例：
 Str::randomFloat(); // 9.18
 ```
 
-#### randomProvince()
+#### 返回随机省份或列表(randomProvince)
 
 ```php
-// 返回随机省份或列表（中国共计34个省级行政区，包括23个省、5个自治区、4个直辖市、2个特别行政区）
+// 中国共计34个省级行政区，包括23个省、5个自治区、4个直辖市、2个特别行政区
 randomProvince(bool $isIndex = false, bool $isAll = false)
-// 使用案例：
 Str::randomProvince();
 // Array
 // (
@@ -146,12 +129,11 @@ Str::randomProvince();
 // )
 ```
 
-#### stringToArray()
+#### 字符串转数组(stringToArray)
 
 ```php
-// 字符串转数组(支持中文英文混合字符串)
+// 支持中文英文混合字符串
 stringToArray(string $string, string $charset = "utf-8")
-// 使用案例：
 Str::stringToArray("张a三");
 // Array
 // (
@@ -161,13 +143,13 @@ Str::stringToArray("张a三");
 // )
 ```
 
-#### dataMasking()
+#### 数据脱敏(dataMasking)(更新中)
 
 ```php
-// 数据脱敏 支持指定类型及自定义规则脱敏 (更新中)
+// 支持指定类型及自定义规则脱敏
 // 类型($type) [1姓名,2出生日期,3手机号,4身份证,5银行卡号,6电子邮箱]
 dataMasking(string $string = "", int $type = 0, array $index = [], string $replace = "*")
-// 使用案例：
+
 Str::dataMasking(Str::randomName()['username'], 1);//司马**
 Str::dataMasking("1990/10/11", 2);//19**/**/**
 Str::dataMasking(self::randomPhone(), 3);//181****9191
@@ -178,12 +160,10 @@ Str::dataMasking(Str::randomEmail(), 6); //******@qq.com
 Str::dataMasking("内蒙古锡林郭勒盟二连浩特市", 0, [4, 5, 6, 7, 8]); //内蒙古锡*****连浩特市
 ```
 
-#### amountConvert()
+#### 金额转换为中文大写金额(amountConvert)
 
 ```php
-// 金额转换为中文大写金额
 amountConvert(float $amount = 0.00, bool $isround = true, int $type = 0)
-// 使用案例：
 Str::amountConvert(10000000.34, false);//壹仟万元叁角肆分
 ```
 
@@ -193,7 +173,7 @@ Str::amountConvert(10000000.34, false);//壹仟万元叁角肆分
 use func\Str;
 ```
 
-#### equal()
+#### 比较数组是否相等(equal)
 
 ```php
 // 比较数组是否相等
@@ -203,12 +183,10 @@ Arr::equal([['id' => 1, 'name' => "广东省", 'pid' => 0]],[['id' => 1, 'name' 
 // false
 ```
 
-#### tree()
+#### 返回所有下级节点(tree)
 
 ```php
-// 无限极分类(以children包含下级的方式)
 tree($list = [], $keyName = "pid")
-// 使用案例：
 Arr::tree([
     ['id' => 1, 'name' => "广东省", 'pid' => 0],
     ['id' => 2, 'name' => "深圳市", 'pid' => 1],
@@ -253,12 +231,10 @@ Arr::tree([
 // )
 ```
 
-#### classify()
+#### 返回所有节点等级(classify)
 
 ```php
-// 无限极分类(递归方式，返回节点的等级level)
 classify(array $data, int $id = 0, int $level = 0, string $keyName = "pid")
-// 使用案例：
 Arr::classify([
     ['id' => 1, 'name' => "广东省", 'pid' => 0],
     ['id' => 2, 'name' => "深圳市", 'pid' => 1],
@@ -292,12 +268,10 @@ Arr::classify([
 // )
 ```
 
-#### familyTree()
+#### 获取指定节点的所有父节点(familyTree)
 
 ```php
-// 获取指定节点的所有父节点
 familyTree(array $data, int $nodeId, string $keyName = "pid")
-// 使用案例：
 Arr::familyTree([
     ['id' => 1, 'name' => "广东省", 'pid' => 0],
     ['id' => 2, 'name' => "深圳市", 'pid' => 1],
@@ -312,21 +286,18 @@ Arr::familyTree([
 //             [name] => 广东省
 //             [pid] => 0
 //         )
-
 //     [1] => Array
 //         (
 //             [id] => 2
 //             [name] => 深圳市
 //             [pid] => 1
 //         )
-
 //     [2] => Array
 //         (
 //             [id] => 3
 //             [name] => 龙华区
 //             [pid] => 2
 //         )
-
 //     [3] => Array
 //         (
 //             [id] => 4
@@ -336,12 +307,10 @@ Arr::familyTree([
 // )
 ```
 
-#### subordinate()
+#### 获取最次级节点(subordinate)
 
 ```php
-// 获取最次一级节点
 subordinate(array $data = [], string $keyName = "pid")
-// 使用案例：
 Arr::subordinate([
     ['id' => 1, 'name' => "广东省", 'pid' => 0],
     ['id' => 2, 'name' => "深圳市", 'pid' => 1],
@@ -364,6 +333,27 @@ Arr::subordinate([
 //             [name] => 望城区
 //             [pid] => 8
 //         )
+// )
+```
+
+#### 多维数组转一维(changeToSingle)
+
+```php
+changeToSingle(array $data = [], string $keyName = "pid")
+Arr::changeToSingle([[1, 2, 3], [4, 5, 6], [7, 8, 9 => ['a', 'b' => ['c', 'd']]]]);
+// Array
+// (
+//     [0] => 1
+//     [1] => 2
+//     [2] => 3
+//     [3] => 4
+//     [4] => 5
+//     [5] => 6
+//     [6] => 7
+//     [7] => 8
+//     [8] => a
+//     [9] => c
+//     [10] => d
 // )
 ```
 

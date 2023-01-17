@@ -116,4 +116,19 @@ class Arr
         }
         return $tree ?? [];
     }
+
+    /**
+     * 多维数组转一维
+     *
+     * @param array $data
+     * @return array
+     */
+    public static function changeToSingle(array $data): array
+    {
+        $return = [];
+        array_walk_recursive($array, function ($x, $index) use (&$return) {
+            $return[] = $x;
+        });
+        return $return;
+    }
 }
