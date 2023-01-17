@@ -173,7 +173,7 @@ Str::amountConvert(10000000.34, false);//壹仟万元叁角肆分
 ```php
 // columns 0英文名|1中文名|2十六进制|3RGB
 randomColor(int $num = 2, array $columns = [2])
-Str::randomColor("我是中国人");
+Str::randomColor();
 // Array
 // (
 //     [0] => Array
