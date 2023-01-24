@@ -399,6 +399,39 @@ Arr::cartesianProduct([['透气', '防滑'], ['37码', '38码', '39码'], ['男�
 // )
 ```
 
+#### 二维数组根据某个字段排序(sortByKey)
+
+```php
+sortByKey(array $array, string $keys, string $sort = SORT_DESC)
+Arr::sortByKey([
+    ['id' => 3, 'name' => "龙华区", 'pid' => 2],
+    ['id' => 1, 'name' => "广东省", 'pid' => 0],
+    ['id' => 2, 'name' => "深圳市", 'pid' => 1],
+], 'pid'));
+// Array
+// (
+//     [0] => Array
+//         (
+//             [id] => 3
+//             [name] => 龙华区
+//             [pid] => 2
+//         )
+//     [1] => Array
+//         (
+//             [id] => 2
+//             [name] => 深圳市
+//             [pid] => 1
+//         )
+//     [2] => Array
+//         (
+//             [id] => 1
+//             [name] => 广东省
+//             [pid] => 0
+//         )
+
+// )
+```
+
 ### 常用工具类
 
 |类名         |处理类型  |所属工具类 |  功能说明  |
