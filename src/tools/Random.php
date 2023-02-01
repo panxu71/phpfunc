@@ -210,6 +210,6 @@ class Random
         for ($i = 0; $i < $limit; $i++) {
             $images[$i] = "https://picsum.photos/{$width}/{$heigh}?random=" . Str::uuid(true, false);
         }
-        pp($images);
+        return $images;
     }
 }
