@@ -437,6 +437,7 @@ Arr::sortByKey([
 |类名         |处理类型  |所属工具类 |  功能说明  |
 | :-----:   |  :-----:  | :----:  | ----  |
 | Date      |日期处理  |  tools |   常用日期处理方法     |
+| Random      |随机处理  |  tools |   产生随机数据     |
 
 ### 日期类工具（Date）
 
@@ -490,13 +491,95 @@ Date::week();
 //     [start] => 2023-01-09 00:00:00
 //     [end] => 2023-01-15 23:59:59
 // )
+```
 
+#### 时间格式化(format)
+
+```php
+// $date支持任意格式日期（必须是时间日期格式）
+// 1、长度格式不限，年、月、日、时、分、秒（可选），但必须是按照年月日时分秒顺序，如：2022、20221213、2022121212……;
+// 2、分隔符不限，"","-","/",（可选），如：202212，2022-12，2022/12
+format(string|int $date): string
+Date::format(2005) //2005-02-01 14:07:12
+Date::format("200512") //2005-12-01 14:07:12
+Date::format("20051220") //2005-12-20 14:07:12
+Date::format("2005122011") //2005-12-20 11:07:12
+```
+
+### 随机类工具（Random）
+
+```php
+use func\tools\Random;
+```
+
+#### 随机姓名(name)
+
+```php
+// 支持英文名
+name(string $surname = "", int $sex = 0, int $sanme = 0,  string $type = "zh")
+Random::name();
+// Array
+// (
+//     [surname] => 葛
+//     [name] => 俊宛
+//     [full_name] => 葛俊宛
+// )
+Random::name("王");
+// Array
+// (
+//     [surname] => 王
+//     [name] => 化瑞
+//     [full_name] => 王化瑞
+// )
+```
+
+#### 随机字符串(string)
+
+```php
+string(int $len = 6, bool $number = true, bool $lower = true, bool $upper = false, bool $special = false)
+Random::string(); // hgukx0r
+```
+
+#### 随机邮箱(email)
+
+```php
+// 支持自定义域名及国外邮箱
+email(string $domain = "", int $len = 8,  string $type = "zh")
+Random::email(); 
+// Array
+// (
+//     [domain] => yeah.net
+//     [email] => kvpjugknk@yeah.net
+// )
+```
+
+#### 随机日期(dates)
+
+```php
+// 支持指定年份和范围，默认随机近80年
+dates(array $scope = [])
+Random::dates(); 
+// Array
+// (
+//     [timestamp] => 1093197790
+//     [date] => 2004-08-23 02:03:10
+// )
+```
+
+#### 随机身份证号(identityCard)
+
+```php
+// 支持指定地区、性别、生日，默认随机近80年
+identityCard(int $regionCode = 0, int $sex = 0, int $birth = 0)
+Random::identityCard(); // 370602202311081317
+Random::identityCard(130107); // 130107202311081317
 ```
 
 ### 版本更新
 
 |版本 |日期 |说明  |
 |:----:   | :----: | ----  |
+| 0.1.5      | 2023-02-01 | 工具集新增随机类     |
 | 0.1.4      | 2023-01-16 | 新增数组函数集Arry     |
 | 0.1.3      | 2023-01-14 | no message     |
 | 0.1.2      | 2023-01-12 | no message     |

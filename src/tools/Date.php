@@ -10,6 +10,8 @@
 // +----------------------------------------------------------------------
 namespace func\tools;
 
+use func\Str;
+
 class Date
 {
     /**
@@ -85,5 +87,33 @@ class Date
         $data['start'] = $isTimestamp ? $start : date('Y-m-d H:i:s', $start);
         $data['end']   = $isTimestamp ? $end : date('Y-m-d H:i:s', $end);
         return $data;
+    }
+
+    /**
+     * 时间格式化
+     *
+     * @param string|integer $date 时间(支持任意格式日期)
+     * @return string
+     */
+    public static function format(string|int $date): string
+    {
+        // 检验传入数组时间范围是否合法
+        // /(([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|1[0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[13579][26])00))-02-29)/
+        $newDate  = Str::stringToArray(date("YmdHis"));
+        $date     = Str::stringToArray($date);
+        $numCount = 0;
+        foreach ($date as $v) {
+            if (is_numeric($v)) {
+                // $numCount == 0  && $v > 2 && $v = 2;
+                $numCount == 4  && $v > 1 && $v = 0;
+                $numCount == 6  && $v > 3 && $v = 1;
+                $numCount == 8  && $v > 2 && $v = 0;
+                $numCount == 10 && $v > 5 && $v = 5;
+                $numCount == 12 && $v > 5 && $v = 5;
+                $newDate[$numCount] = $v;
+                $numCount++;
+            }
+        }
+        return date("Y-m-d H:i:s", strtotime(implode("", $newDate)));
     }
 }
