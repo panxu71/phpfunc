@@ -579,7 +579,7 @@ Random::identityCard(130107); // 130107202311081317
 
 ```php
 amountamount($max = 100, $min = 0, $num = 2)
-Random::amount(); // <pre>36.54
+Random::amount(); // 36.54
 ```
 
 ### 版本更新
