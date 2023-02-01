@@ -71,26 +71,25 @@ class Str
     /**
      * 返回全局唯一UUID
      *
-     * @param boolean $isConnector 是否带连接符"-",默认带连接符
-     * @param boolean $isMark  是否带花括号"{}",默认带花括号
-     * @param boolean $islower 是否转大写,默认小写
+     * @param boolean $connector 是否带连接符"-",默认带连接符
+     * @param boolean $mark  是否带花括号"{}",默认带花括号
+     * @param boolean $lower 是否转大写,默认小写
      * @return void
      */
-    public static function uuid(bool $isConnector = true, bool $isMark = true, bool $islower = false)
+    public static function uuid(bool $connector = true, bool $mark = true, bool $lower = false): string
     {
         if (function_exists('com_create_guid')) {
-            $uuid                  = com_create_guid(); // "{b86cc5ed-0736-4d7a-b5f6-e0aa52d3a5df}";
-            !$isConnector && $guid = str_replace("-", "", $uuid);
-            !$isMark && $uuid      = trim($uuid, '{}');
-            $islower && $uuid      = strtoupper($uuid);
+            $uuid                = com_create_guid(); // "{b86cc5ed-0736-4d7a-b5f6-e0aa52d3a5df}";
+            !$connector && $uuid = str_replace("-", "", $uuid);
+            !$mark && $uuid      = trim($uuid, '{}');
+            $lower && $uuid      = strtoupper($uuid);
             return $uuid;
         }
-        $connector               = $isConnector ? "-" : "";
-        $mark                    = $isMark ? ["{", "}"] : ["", ""];
-        mt_srand((float)microtime() * 10000); //optional for php 4.2.0 and up.
+        $connector               = $connector ? "-" : "";
+        $mark                    = $mark ? ["{", "}"] : ["", ""];
         $charid                  = strtoupper(md5(uniqid(rand(), true)));
         $uuid                    = $mark[0] . substr($charid, 0, 8) . $connector . substr($charid, 8, 4) . $connector . substr($charid, 12, 4) . $connector . substr($charid, 16, 4) . $connector . substr($charid, 20, 12) . $mark[1];
-        return !$islower ? strtolower($uuid) : $uuid;
+        return !$lower ? strtolower($uuid) : $uuid;
     }
 
     /**
