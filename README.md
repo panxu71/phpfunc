@@ -582,6 +582,17 @@ amountamount($max = 100, $min = 0, $num = 2)
 Random::amount(); // 36.54
 ```
 
+#### 随机图片(images)
+
+```php
+images(int $width = 250, int $heigh = 160, int $limit = 1)
+Random::images(); 
+// Array
+// (
+//     [0] => https://picsum.photos/249/160?random=f1540363-43cb-f649-47e7-0d4ffb636d7c
+// )
+```
+
 ### 版本更新
 
 |版本 |日期 |说明  |

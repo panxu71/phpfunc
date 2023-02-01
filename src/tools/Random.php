@@ -194,4 +194,22 @@ class Random
     {
         return sprintf("%." . $num . "f", $min + mt_rand() / mt_getrandmax() * ($max - $min));
     }
+
+    /**
+     * 随机图片
+     *
+     * @param integer $width 图片宽度,默认250
+     * @param integer $heigh 图片高度,默认160
+     * @param integer $limit 图片数量,默认1
+     * @return void
+     */
+    public static function images(int $width = 250, int $heigh = 160, int $limit = 1): array
+    {
+        $images = [];
+        $limit = $limit < 1 ? 1 : $limit;
+        for ($i = 0; $i < $limit; $i++) {
+            $images[$i] = "https://picsum.photos/{$width}/{$heigh}?random=" . Str::uuid(true, false);
+        }
+        pp($images);
+    }
 }
