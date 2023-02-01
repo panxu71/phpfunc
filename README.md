@@ -593,6 +593,13 @@ Random::images();
 // )
 ```
 
+#### 随机头像(avatar)
+
+```php
+avatar()
+Random::avatar(); // https://api.multiavatar.com/e3428cafedb61c5e116fe526ad6bfb3f.png
+```
+
 ### 版本更新
 
 |版本 |日期 |说明  |

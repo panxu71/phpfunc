@@ -212,4 +212,16 @@ class Random
         }
         return $images;
     }
+
+    /**
+     * 随机头像
+     *
+     * @return void
+     */
+    public static function avatar(): string
+    {
+        // https://www.bossdesign.cn/multiavatar/
+        $uuid = Str::uuid(false, false);
+        return "https://api.multiavatar.com/{$uuid}.png";
+    }
 }
