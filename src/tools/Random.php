@@ -181,4 +181,17 @@ class Random
         }
         return  $base . ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'][$sums % 11];
     }
+
+    /**
+     * 随机金额
+     *
+     * @param integer $max 最大值
+     * @param integer $min 最小值
+     * @param integer $num 小数位,默认两位
+     * @return void
+     */
+    public static function amount($max = 100, $min = 0, $num = 2)
+    {
+        return sprintf("%." . $num . "f", $min + mt_rand() / mt_getrandmax() * ($max - $min));
+    }
 }

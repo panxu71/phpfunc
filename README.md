@@ -575,6 +575,14 @@ Random::identityCard(); // 370602202311081317
 Random::identityCard(130107); // 130107202311081317
 ```
 
+#### 随机金额(amount)
+
+```php
+// 支持指定地区、性别、生日，默认随机近80年
+amountamount($max = 100, $min = 0, $num = 2)
+Random::amount(); // <pre>36.54
+```
+
 ### 版本更新
 
 |版本 |日期 |说明  |
