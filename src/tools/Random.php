@@ -224,4 +224,58 @@ class Random
         $uuid = Str::uuid(false, false);
         return "https://api.multiavatar.com/{$uuid}.png";
     }
+
+    /**
+     * 随机银行卡号
+     * 仅供学习参考，请不要用于非法用途，否则后果自负
+     * @param integer $type 卡类型,默认0(0,随机;1,银行卡;2,信用卡)
+     * @param string  $bank  银行名称,默认随机
+     * @return void
+     */
+    public static function bankCard(int $type = 0, string $bank = ""): array
+    {
+        $bankDatas = json_decode((new self)->loadConf("bank"), true);
+        $binList   = $bankDatas['bin'];
+        $bankList  = array_unique(array_column($binList, "bank_name"));
+        // 卡片类型
+        $type = ($type != 1 && $type != 2) ?  mt_rand(0, 1) : $type;
+        $bankName = $bank != "" && in_array($bank, $bankList) ? $bank : "";
+        if ($bankName != "") {
+            foreach ($binList as $v) {
+                if ($v["bank_name"] == $bankName && $type - 1 == $v['type']) {
+                    $bankInfo = $v;
+                }
+            }
+        } else {
+            do {
+                $bankInfo = $binList[array_rand($binList, 1)];
+            } while ($bankInfo['card_len'] >= 16 && $type - 1 != (int)$bankInfo['type'] && !preg_match("/[\x80-\xff]{4,8}/", $bankInfo['bank_name']));
+        }
+
+        $cardNumber = $bankInfo["bin"];
+        # generate digits
+        while (strlen($cardNumber) < ($bankInfo["card_len"] - 1)) {
+            $cardNumber .= rand(0, 9);
+        }
+        # Calculate sum
+        $sum = 0;
+        $pos = 0;
+        $reversedCardNumber = strrev($cardNumber);
+        while ($pos < $bankInfo["card_len"] - 1) {
+            $odd = $reversedCardNumber[$pos] * 2;
+            if ($odd > 9) {
+                $odd -= 9;
+            }
+            $sum += $odd;
+            if ($pos != ($bankInfo["card_len"] - 2)) {
+                $sum += $reversedCardNumber[$pos + 1];
+            }
+            $pos += 2;
+        }
+        # Calculate check digit
+        $cardNumber .= ((floor($sum / 10) + 1) * 10 - $sum) % 10;
+        $data['bank_name'] = $bankInfo['bank_name'];
+        $data['card_no']   = $cardNumber;
+        return $data;
+    }
 }

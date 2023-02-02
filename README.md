@@ -600,6 +600,19 @@ avatar()
 Random::avatar(); // https://api.multiavatar.com/e3428cafedb61c5e116fe526ad6bfb3f.png
 ```
 
+#### 随机银行卡号(bankCard)
+
+```php
+// 注意：仅供学习参考，请不要用于非法用途，否则后果自负
+bankCard()
+Random::bankCard(); 
+// Array
+// (
+//     [bank_name] => 交通银行
+//     [card_no] => 6282167982311568
+// )
+```
+
 ### 版本更新
 
 |版本 |日期 |说明  |
