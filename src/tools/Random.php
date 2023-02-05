@@ -324,7 +324,7 @@ class Random
         } while ($region['level'] != 1);
         $data["city"] = $region["name"];
         $data["name"] = $companyDatas["name"][array_rand($companyDatas["name"], 1)];
-        $data["type"] = $companyDatas["type"][array_rand($companyDatas["type"], 1)] . ["有限", "有限责任", "股份", "集团有限"][mt_rand(0, 3)] . "公司";
+        $data["type"] = $companyDatas["type"][array_rand($companyDatas["type"], 1)] . ["有限", "有限责任", "股份有限", "集团有限"][mt_rand(0, 3)] . "公司";
         return $data;
     }
 }
