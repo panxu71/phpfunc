@@ -642,6 +642,18 @@ Random::company();
 // )
 ```
 
+#### 随机手机号码(phone)
+
+```php
+phone(int $type = 0, int $operator = 0)
+Random::phone(); 
+// Array
+// (
+//     [operator] => 187
+//     [number] => 69551472
+// )
+```
+
 ### 版本更新
 
 |版本 |日期 |说明  |

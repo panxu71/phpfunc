@@ -315,7 +315,7 @@ class Random
      *
      * @return void
      */
-    public static function company()
+    public static function company(): array
     {
         $companyDatas = json_decode((new self)->loadConf(__FUNCTION__), true);
         $regionDatas  = json_decode((new self)->loadConf("region"), true);
@@ -326,5 +326,29 @@ class Random
         $data["name"] = $companyDatas["name"][array_rand($companyDatas["name"], 1)];
         $data["type"] = $companyDatas["type"][array_rand($companyDatas["type"], 1)] . ["有限", "有限责任", "股份有限", "集团有限"][mt_rand(0, 3)] . "公司";
         return $data;
+    }
+
+    /**
+     * 生成随机手机号码
+     * @param  integer $type     运营商类型,默认随机(0,随机,1,移动;2,联通;3,电信)
+     * @param  integer $operator 网络识别号
+     * @return string            13244859784
+     */
+    public static function phone(int $type = 0, int $operator = 0): array
+    {
+        $paragraph  = [
+            ['134', '135', '136', '137', '138', '139', '147', '150', '151', '152', '157', '158', '159', '172', '178', '182', '183', '184', '187', '188', '198'],
+            ['130', '131', '132', '145', '155', '156', '166', '171', '175', '176', '185', '186', '166'],
+            ['133', '149', '153', '173', '177', '180', '181', '189', '199']
+        ];
+        if ($operator != 0 && !preg_match("/^1[3-9]{1}[0-9]{1}$/", $operator)) {
+            return "号段不合法";
+        }
+        // 运营商类型
+        $type             = !in_array($type, [1, 2, 3]) ? mt_rand(1, 3) : $type;
+        $data['operator'] = $operator ?: $paragraph[$type - 1][array_rand($paragraph[$type - 1])];
+        // 除号码外的8位随机数
+        $data['number']   = rand(pow(10, (8 - 1)), pow(10, 8) - 1);
+        return  $data;
     }
 }
