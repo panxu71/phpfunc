@@ -629,6 +629,19 @@ Random::address();
 // )
 ```
 
+#### 随机公司名称(company)
+
+```php
+company()
+Random::company(); 
+// Array
+// (
+//     [city] => 临沂市
+//     [name] => 泰识
+//     [type] => 玻璃制品股份公司
+// )
+```
+
 ### 版本更新
 
 |版本 |日期 |说明  |

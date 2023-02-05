@@ -309,4 +309,22 @@ class Random
         $address[5] = $region['code'];
         return $address;
     }
+
+    /**
+     * 随机公司名称
+     *
+     * @return void
+     */
+    public static function company()
+    {
+        $companyDatas = json_decode((new self)->loadConf(__FUNCTION__), true);
+        $regionDatas  = json_decode((new self)->loadConf("region"), true);
+        do {
+            $region   = $regionDatas[array_rand($regionDatas, 1)];
+        } while ($region['level'] != 1);
+        $data["city"] = $region["name"];
+        $data["name"] = $companyDatas["name"][array_rand($companyDatas["name"], 1)];
+        $data["type"] = $companyDatas["type"][array_rand($companyDatas["type"], 1)] . ["有限", "有限责任", "股份", "集团有限"][mt_rand(0, 3)] . "公司";
+        return $data;
+    }
 }
