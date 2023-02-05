@@ -604,12 +604,29 @@ Random::avatar(); // https://api.multiavatar.com/e3428cafedb61c5e116fe526ad6bfb3
 
 ```php
 // 注意：仅供学习参考，请不要用于非法用途，否则后果自负
-bankCard()
+bankCard(int $type = 0, string $bank = "")
 Random::bankCard(); 
 // Array
 // (
 //     [bank_name] => 交通银行
 //     [card_no] => 6282167982311568
+// )
+```
+
+#### 随机银地址(address)
+
+```php
+// 注意：仅供学习参考，请不要用于非法用途，否则后果自负
+address()
+Random::address(); 
+// Array
+// (
+//     [0] => 广西壮族自治区
+//     [1] => 河池市
+//     [2] => 巴马瑶族自治县
+//     [3] => 所略乡
+//     [4] => 丰镇村008号
+//     [5] => 451227203000
 // )
 ```
 

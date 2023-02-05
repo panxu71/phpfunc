@@ -158,13 +158,7 @@ class Random
             $regionDatas = json_decode((new self)->loadConf("region"), true);
             $codeList    = [];
             foreach ($regionDatas as $v) {
-                // 直辖市 北京1、上海10590、天津367、重庆30940
-                // 该方式可以通过省市区指定
-                // $v['node_path'] = explode(",", $v['node_path']);
-                // if ((count($v['node_path']) == 1 || ((count($v['node_path']) == 2) && !in_array($v['node_path'][0], [1, 367, 10590, 30940]))) && $v['pid'] != 0) {
-                //     array_push($randomCode, substr($v['region_code'], 0, 6));
-                // }
-                $tmpRegionCode = substr($v['region_code'], 0, 6);
+                $tmpRegionCode = substr($v['code'], 0, 6);
                 $codeList[$tmpRegionCode] = $tmpRegionCode;
             }
         }
@@ -277,5 +271,42 @@ class Random
         $data['bank_name'] = $bankInfo['bank_name'];
         $data['card_no']   = $cardNumber;
         return $data;
+    }
+
+    /**
+     * 随机地址
+     *
+     * @return array
+     */
+    public static function address(): array
+    {
+        // 小区名称参考：https://www.anjuke.com/changsha/cm/
+        $regionDatas  = json_decode((new self)->loadConf("region"), true);
+        do {
+            $region   = $regionDatas[array_rand($regionDatas, 1)];
+        } while ($region['level'] != 3);
+
+        $randomInfo      = Arr::familyTree($regionDatas, $region["id"]);
+        $address         = array_column($randomInfo, "name");
+        $addressData     = json_decode((new self)->loadConf(__FUNCTION__), true);
+        $number          = str_pad(mt_rand(1, 100), 3, "0", STR_PAD_LEFT);
+        $fool            = mt_rand(1, 30);
+        $village         = mt_rand(1, 200) . "栋";
+        $room            = $fool  . $number . "室";
+
+        $address[4] = $addressData["street"][array_rand($addressData["street"], 1)] . "村" . $number . "号";
+
+        if (strpos($address[3], "街道") !== false || strpos($address[3], "区") !== false) {
+            $type  = ["street", "mansion", "neighbourhood"][mt_rand(0, 2)];
+            $type  == "street" &&
+                $address[4] = $addressData["street"][array_rand($addressData["street"], 1)] . ["路", "村"][mt_rand(0, 1)] . $village . $room;
+            $type  == "mansion" &&
+                $address[4] = $addressData["mansion"][array_rand($addressData["mansion"], 1)] . "大厦" . ["A", "B", "C", "D", "E"][array_rand(["A", "B", "C", "D", "E"])] . "座" . $fool . "层" . $room;
+            $type  == "neighbourhood" &&
+                $address[4] = $addressData["neighbourhood"][array_rand($addressData["neighbourhood"], 1)] . $village . $room;
+        }
+
+        $address[5] = $region['code'];
+        return $address;
     }
 }
