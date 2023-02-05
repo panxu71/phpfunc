@@ -613,10 +613,9 @@ Random::bankCard();
 // )
 ```
 
-#### 随机银地址(address)
+#### 随机地址(address)
 
 ```php
-// 注意：仅供学习参考，请不要用于非法用途，否则后果自负
 address()
 Random::address(); 
 // Array
