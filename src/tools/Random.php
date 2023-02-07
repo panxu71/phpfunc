@@ -11,6 +11,7 @@
 namespace func\tools;
 
 use func\Str;
+use func\Arr;
 use func\tools\Date;
 
 class Random
