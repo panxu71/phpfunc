@@ -307,8 +307,13 @@ class Random
                 $address[4] = $addressData["neighbourhood"][array_rand($addressData["neighbourhood"], 1)] . $village . $room;
         }
 
-        $address[5] = $region['code'];
-        return $address;
+        $data["province"] = $address[0];
+        $data["city"]     = $address[1];
+        $data["district"] = $address[2];
+        $data["town"]     = $address[3];
+        $data["code"]     = $region['code'];
+        $data["address"]  = $data["province"] . ($data["city"] != $data["province"] ? $data["city"] : "") . ($data["district"] != $data["city"] ? $data["district"] : "") . $data["town"] . $address[4];
+        return $data;
     }
 
     /**
@@ -323,9 +328,10 @@ class Random
         do {
             $region   = $regionDatas[array_rand($regionDatas, 1)];
         } while ($region['level'] != 1);
-        $data["city"] = $region["name"];
-        $data["name"] = $companyDatas["name"][array_rand($companyDatas["name"], 1)];
-        $data["type"] = $companyDatas["type"][array_rand($companyDatas["type"], 1)] . ["有限", "有限责任", "股份有限", "集团有限"][mt_rand(0, 3)] . "公司";
+        $data["city"]      = $region["name"];
+        $data["name"]      = $companyDatas["name"][array_rand($companyDatas["name"], 1)];
+        $data["type"]      = $companyDatas["type"][array_rand($companyDatas["type"], 1)] . ["有限", "有限责任", "股份有限", "集团有限"][mt_rand(0, 3)] . "公司";
+        $data["full_name"] = $data["city"] . $data["name"] . $data["type"];
         return $data;
     }
 
@@ -346,10 +352,9 @@ class Random
             return "号段不合法";
         }
         // 运营商类型
-        $type             = !in_array($type, [1, 2, 3]) ? mt_rand(1, 3) : $type;
-        $data['operator'] = $operator ?: $paragraph[$type - 1][array_rand($paragraph[$type - 1])];
-        // 除号码外的8位随机数
-        $data['number']   = rand(pow(10, (8 - 1)), pow(10, 8) - 1);
+        $type                = !in_array($type, [1, 2, 3]) ? mt_rand(1, 3) : $type;
+        $data['operator']    = $operator ?: $paragraph[$type - 1][array_rand($paragraph[$type - 1])];
+        $data['full_number'] = $data['operator'] . rand(pow(10, (8 - 1)), pow(10, 8) - 1); // 除号码外的8位随机数
         return  $data;
     }
 }

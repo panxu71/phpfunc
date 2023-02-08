@@ -616,36 +616,37 @@ Random::bankCard();
 #### 随机地址(address)
 
 ```php
-address()
+address():array
 Random::address(); 
 // Array
 // (
-//     [0] => 广西壮族自治区
-//     [1] => 河池市
-//     [2] => 巴马瑶族自治县
-//     [3] => 所略乡
-//     [4] => 丰镇村008号
-//     [5] => 451227203000
+//     [province] => 湖南省
+//     [city] => 娄底市
+//     [district] => 娄星区
+//     [town] => 杉山镇
+//     [code] => 431302100000
+//     [address] => 湖南省娄底市娄星区杉山镇民壮村007号
 // )
 ```
 
 #### 随机公司名称(company)
 
 ```php
-company()
+company():array
 Random::company(); 
 // Array
 // (
-//     [city] => 临沂市
-//     [name] => 泰识
-//     [type] => 玻璃制品股份公司
+//     [city] => 泸州市
+//     [name] => 顿啸
+//     [type] => 物业管理有限公司
+//     [full_name] => 泸州市顿啸物业管理有限公司
 // )
 ```
 
 #### 随机手机号码(phone)
 
 ```php
-phone(int $type = 0, int $operator = 0)
+phone(int $type = 0, int $operator = 0):array
 Random::phone(); 
 // Array
 // (
