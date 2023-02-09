@@ -187,10 +187,20 @@ Str::randomColor();
 // )
 ```
 
+#### 生成唯一订单号(orderNumber)
+
+```php
+// 全局唯一（原理uuid）
+orderNumber(string $prefix = "", bool $letter = false, int $len = 19): string
+Str::orderNumber(); //1741525064319552540
+Str::orderNumber("C"); //C385012325448904557
+Str::orderNumber("",true); //d8bc4aad9ddd3bd2690
+```
+
 ### 数组函数说明
 
 ```php
-use func\Str;
+use func\Arr;
 ```
 
 #### 比较数组是否相等(equal)

@@ -74,7 +74,7 @@ class Str
      * @param boolean $connector 是否带连接符"-",默认带连接符
      * @param boolean $mark  是否带花括号"{}",默认带花括号
      * @param boolean $lower 是否转大写,默认小写
-     * @return void
+     * @return string
      */
     public static function uuid(bool $connector = true, bool $mark = true, bool $lower = false): string
     {
@@ -479,5 +479,32 @@ class Str
             }
         }
         return $data;
+    }
+
+    /**
+     * 生成唯一订单号
+     *
+     * @param string $prefix  指定前缀，默认为""
+     * @param boolean $letter 是否包含字母
+     * @param integer $len    指定长度，默认19
+     * @return string
+     */
+    public static function orderNumber(string $prefix = "", bool $letter = false, int $len = 19): string
+    {
+        $random = Str::stringToArray(Str::uuid());
+        $number = $prefix;
+        foreach ($random as $k => $v) {
+            if (strlen($number) > $len - 1) {
+                return $number;
+            }
+            if ($letter) {
+                preg_match("/[0-9a-zA-Z]$/", $v) && $number .= $v;
+            } else {
+                $v = Str::stringToArray(ord($v));
+                $number .= $v[array_rand($v, 1)];
+            }
+            !$k && $number == "0" && $number += 1; //保证不以0开头
+        }
+        return $number;
     }
 }
