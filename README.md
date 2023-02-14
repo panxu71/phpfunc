@@ -672,6 +672,20 @@ ip(): string
 Random::ip(); //27.46.57.236
 ```
 
+#### 随机网址(website)
+
+```php
+website(string $domain = "", string $protocol = "https", string $secondary = "www", string $type = "en"): array
+Random::website();
+Array
+(
+    [protocol] => https
+    [secondary] => www
+    [domain] => cjasbkwjjsn.com
+    [url] => https://www.cjasbkwjjsn.com
+)
+```
+
 ### 版本更新
 
 |版本 |日期 |说明  |

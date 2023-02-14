@@ -380,4 +380,28 @@ class Random
         $rand_key = mt_rand(0, 9);
         return long2ip(mt_rand($ipLong[$rand_key][0], $ipLong[$rand_key][1]));
     }
+
+    /**
+     * 随机网址
+     *
+     * @param string $domain    域名,默认随机,可指定
+     * @param string $protocol  传输协议,默认https,可指定
+     * @param string $secondary 二级域名,默认www,可指定
+     * @param string $type      域名类型,默认zh,可指定(zh,中国;en,国外)
+     * @return array
+     */
+    public static function website(string $domain = "", string $protocol = "https", string $secondary = "www", string $type = "en"): array
+    {
+        // 域名后缀参考来源：https://help.aliyun.com/document_detail/35751.html#section-htk-ycd-b2b
+        if ($domain != "" && !preg_match("/^[A-Za-z0-9]+\.(cn|com|net|net.cn)$/", $domain)) {
+            return "域名类型不合法";
+        }
+        $domainlDatas      = json_decode((new self)->loadConf("domain"), true);
+        $domainlList       = $type != "en" ? $domainlDatas[array_rand($domainlDatas, 1)] : $domainlDatas[$type];
+        $data['protocol']  = $protocol != "https" ? "http" : $protocol;
+        $data['secondary'] = $secondary != "" ? $secondary : "www";
+        $data['domain']    = self::string(mt_rand(8, 15), false) . "." . ($domain == "" ? $domainlList[array_rand($domainlList, 1)] : $domain);
+        $data['url']       = $data['protocol'] . "://" . $data['secondary'] . "." .  $data['domain'];
+        return $data;
+    }
 }
