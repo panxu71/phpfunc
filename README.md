@@ -197,6 +197,21 @@ Str::orderNumber("C"); //C385012325448904557
 Str::orderNumber("",true); //d8bc4aad9ddd3bd2690
 ```
 
+#### 字符串加密(encrypt)
+
+```php
+// 用户密码加密md5可以替换为该方法
+encrypt(string $password, string|int|null $algo = PASSWORD_BCRYPT, array $options = ["cost" => 12]): string
+Str::encrypt("zhangsan"); //$2y$12$yt9zq7k8HkU7PxcXOJH.fez3DDyrHmJL5igwgbWAbTobJGk0czWKS
+```
+
+#### 字符串校验(dencrypt)
+
+```php
+dencrypt(string $password, string $hash): bool
+Str::dencrypt("zhangsan", '$2y$12$yt9zq7k8HkU7PxcXOJH.fez3DDyrHmJL5igwgbWAbTobJGk0czWKS'); //true
+```
+
 ### 数组函数说明
 
 ```php

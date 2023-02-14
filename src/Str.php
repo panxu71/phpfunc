@@ -507,4 +507,29 @@ class Str
         }
         return $number;
     }
+
+    /**
+     * 通用加密
+     * 
+     * @param string $password      加密字符串
+     * @param string|int|null $algo 加密类型 默认bcrypt
+     * @return string  返回的加密串长度可超过60个字符（最好是255个字符）
+     */
+    public static function encrypt(string $password, string|int|null $algo = PASSWORD_BCRYPT, array $options = ["cost" => 12]): string
+    {
+        // 更多加密方式可参考：https://www.php.net/manual/zh/function.password-hash.php
+        return password_hash($password, PASSWORD_BCRYPT, $options);
+    }
+
+    /**
+     * 加密字符串校验
+     *
+     * @param string $password 原字符串
+     * @param string $hash     加密后的字符串
+     * @return boolean
+     */
+    public static function dencrypt(string $password, string $hash): bool
+    {
+        return password_verify($password, $hash);
+    }
 }
