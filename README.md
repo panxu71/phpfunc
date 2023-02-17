@@ -457,7 +457,7 @@ Arr::sortByKey([
 // )
 ```
 
-#### 二维数组查找某个字段或字段值(sortByKey)
+#### 二维数组查找某个字段或字段值(filterByField)
 
 ```php
 filterByField(array $array, string $field, $val): array
