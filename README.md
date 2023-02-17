@@ -457,6 +457,33 @@ Arr::sortByKey([
 // )
 ```
 
+#### 二维数组查找某个字段或字段值(sortByKey)
+
+```php
+filterByField(array $array, string $field, $val): array
+Arr::filterByField([
+    ['id' => 3, 'name' => "龙华区", 'pid' => 2],
+    ['id' => 1, 'name' => "广东省", 'pid' => 0],
+    ['id' => 2, 'name' => "深圳市", 'pid' => 1],
+    ['id' => 4, 'name' => "福田区", 'pid' => 2],
+], 'pid',2));
+// Array
+// (
+//     [0] => Array
+//         (
+//             [id] => 3       
+//             [name] => 龙华区
+//             [pid] => 2      
+//         )
+//     [3] => Array
+//         (
+//             [id] => 4       
+//             [name] => 福田区
+//             [pid] => 2      
+//         )
+// )
+```
+
 ### 常用工具类
 
 |类名         |处理类型  |所属工具类 |  功能说明  |

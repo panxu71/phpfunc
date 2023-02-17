@@ -49,6 +49,7 @@ class Arr
         }
         return $tree ?? [];
     }
+
     /**
      * 无限极分类(递归方式)
      * @param  array  $data   数据源
@@ -69,13 +70,6 @@ class Arr
         }
         return $list ?? [];
     }
-
-    /**
-     * 获取家族树节点
-     * @param  array   $list 所有节点
-     * @param  integer $cid  指定节点
-     * @return array         返回指定节点的所有父节点
-     */
 
     /**
      * 获取指定节点的所有父节点
@@ -171,5 +165,20 @@ class Arr
         }
         array_multisort($keysValue, $sort, $array);
         return $array;
+    }
+
+    /**
+     * 二维数组查找某个字段或字段值
+     *
+     * @param array $array  二维数组
+     * @param string $field 字段名
+     * @param [type] $val   字段值
+     * @return array
+     */
+    public static function filterByField(array $array, string $field, $val): array
+    {
+        return array_filter($array, function ($row) use ($field, $val) {
+            return $val ? (isset($row[$field]) && $row[$field] == $val) : isset($row[$field]);
+        });
     }
 }
