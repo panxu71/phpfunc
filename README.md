@@ -212,6 +212,13 @@ dencrypt(string $password, string $hash): bool
 Str::dencrypt("zhangsan", '$2y$12$yt9zq7k8HkU7PxcXOJH.fez3DDyrHmJL5igwgbWAbTobJGk0czWKS'); //true
 ```
 
+#### 按符号截取字符串的指定部分(cutStrSpecifySign)
+
+```php
+cutStrSpecifySign(string $str, string $sign, int $number): string
+Str::cutStrSpecifySign("123/456/789/236", "/", 3); //236
+```
+
 ### 数组函数说明
 
 ```php

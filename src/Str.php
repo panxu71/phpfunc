@@ -532,4 +532,26 @@ class Str
     {
         return password_verify($password, $hash);
     }
+
+    /**
+     * 按符号截取字符串的指定部分
+     *
+     * @param string $str     需要截取的字符串
+     * @param string $sign    需要截取的符号
+     * @param integer $number 如是正数以0为起点从左向右截 负数则从右向左截
+     * @return string         返回截取的内容
+     */
+    public static function cutStrSpecifySign(string $str, string $sign, int $number): string
+    {
+        $strArray = explode($sign, $str);
+        $length   = count($strArray);
+        $str      = "";
+        if ($number < 0) {
+            $absNumber = abs($number);
+            $absNumber <= $length && $str = array_reverse($strArray)[$absNumber - 1];
+        } else {
+            $number < $length && $str = $strArray[$number];
+        }
+        return $str;
+    }
 }
