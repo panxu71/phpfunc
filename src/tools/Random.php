@@ -404,4 +404,22 @@ class Random
         $data['url']       = $data['protocol'] . "://" . $data['secondary'] . "." .  $data['domain'];
         return $data;
     }
+
+    /**
+     * 随机汉字
+     *
+     * @param integer $num 生成汉字的数量
+     * @return string
+     */
+    public static function chineseCharacters(int $num): string
+    {
+        $char = '';
+        for ($i = 0; $i < $num; $i++) {
+            // 使用chr()函数拼接双字节汉字，前一个chr()为高位字节，后一个为低位字节
+            $tmpChar = chr(mt_rand(0xB0, 0xD0)) . chr(mt_rand(0xA1, 0xF0));
+            // 转码
+            $char .= iconv('GB2312', 'UTF-8', $tmpChar);
+        }
+        return $char;
+    }
 }

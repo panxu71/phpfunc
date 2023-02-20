@@ -735,6 +735,13 @@ Array
 )
 ```
 
+#### 随机汉字(chineseCharacters)
+
+```php
+chineseCharacters(int $num): string
+Random::chineseCharacters(5);//啥掀嘉蝗檄
+```
+
 ### 版本更新
 
 |版本 |日期 |说明  |
