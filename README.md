@@ -753,14 +753,16 @@ use func\tools\File;
 
 ```php
 folder(string $dir = "")
-File::folder("D:\\work\\project\\custom\\framework");
+$file = new File();
+$file->folder("D:\\work\\project\\custom\\framework");
 ```
 
 #### 读取目录文件信息(readFolder)
 
 ```php
 readFolder(string $dir): array
-File::readFolder("D:\\work\\project\\custom\\");
+$file = new File();
+$file->readFolder("D:\\work\\project\\custom\\");
 // Array
 // (
 //     [0] => Array
@@ -788,7 +790,8 @@ File::readFolder("D:\\work\\project\\custom\\");
 
 ```php
 copy(string $file = "", string $dir = ""): bool
-File::copy("./a/","./b/"); // true
+$file = new File();
+$file->copy("./a/","./b/"); // true
 ```
 
 #### 读取文本文件内容(readTextFile)
@@ -796,7 +799,17 @@ File::copy("./a/","./b/"); // true
 ```php
 //包括但不限于文本文件 .txt/.log/.md....
 readTextFile(string $file = ""): string
-File::readTextFile("./test.txt");// a b c
+$file = new File();
+$file->readTextFile("./test.txt");// a b c
+```
+
+#### 创建并追加内容到文件(write)
+
+```php
+//包括但不限于文本文件 .txt/.log/.md....
+write(string $fileName, string $content = ""): string
+$file = new File();
+$file->write("./123.txt", "这是测试文字");// D:\Daily\project\php\tp6\123.txt
 ```
 
 ### 版本更新
