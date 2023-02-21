@@ -497,6 +497,7 @@ Arr::filterByField([
 | :-----:   |  :-----:  | :----:  | ----  |
 | Date      |日期处理  |  tools |   常用日期处理方法     |
 | Random      |随机处理  |  tools |   产生随机数据     |
+| File      |文件处理  |  tools |   常用的文件处理方法    |
 
 ### 日期类工具（Date）
 
@@ -742,10 +743,67 @@ chineseCharacters(int $num): string
 Random::chineseCharacters(5);//啥掀嘉蝗檄
 ```
 
+### 文件类工具（File）
+
+```php
+use func\tools\File;
+```
+
+#### 创建文件夹(folder)
+
+```php
+folder(string $dir = "")
+File::folder("D:\\work\\project\\custom\\framework");
+```
+
+#### 读取目录文件信息(readFolder)
+
+```php
+readFolder(string $dir): array
+File::readFolder("D:\\work\\project\\custom\\");
+// Array
+// (
+//     [0] => Array
+//         (
+//             [name] => Arr.php    
+//             [type] => file       
+//             [ctime] => 1676603881
+//             [mtime] => 1676603881
+//             [size] => 5797       
+//             [ext] => php
+//         )
+//     [1] => Array
+//         (
+//             [name] => datas
+//             [type] => dir
+//             [ctime] => 1675733352
+//             [mtime] => 1676968867
+//             [size] => 4096
+//             [ext] =>
+//         )
+// )
+```
+
+#### 拷贝文件或目录(copy)
+
+```php
+copy(string $file = "", string $dir = ""): bool
+File::copy("./a/","./b/"); // true
+```
+
+#### 读取文本文件内容(readTextFile)
+
+```php
+//包括但不限于文本文件 .txt/.log/.md....
+readTextFile(string $file = ""): string
+File::readTextFile("./test.txt");// a b c
+```
+
 ### 版本更新
 
 |版本 |日期 |说明  |
 |:----:   | :----: | ----  |
+| 0.1.6      | 2023-02-21 | 工具集新增文件类     |
 | 0.1.5      | 2023-02-01 | 工具集新增随机类     |
 | 0.1.4      | 2023-01-16 | 新增数组函数集Arry     |
 | 0.1.3      | 2023-01-14 | no message     |
