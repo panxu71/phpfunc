@@ -752,17 +752,15 @@ use func\tools\File;
 #### 创建文件夹(folder)
 
 ```php
-folder(string $dir = "")
-$file = new File();
-$file->folder("D:\\work\\project\\custom\\framework");
+folder(string $dir = ""):string 
+File::folder("D:\\work\\project\\custom\\framework"); // /usr/test/20230222
 ```
 
 #### 读取目录文件信息(readFolder)
 
 ```php
 readFolder(string $dir): array
-$file = new File();
-$file->readFolder("D:\\work\\project\\custom\\");
+File::readFolder("D:\\work\\project\\custom\\");
 // Array
 // (
 //     [0] => Array
@@ -790,8 +788,7 @@ $file->readFolder("D:\\work\\project\\custom\\");
 
 ```php
 copy(string $file = "", string $dir = ""): bool
-$file = new File();
-$file->copy("./a/","./b/"); // true
+File::copy("./a/","./b/"); // true
 ```
 
 #### 读取文本文件内容(readTextFile)
@@ -799,8 +796,7 @@ $file->copy("./a/","./b/"); // true
 ```php
 //包括但不限于文本文件 .txt/.log/.md....
 readTextFile(string $file = ""): string
-$file = new File();
-$file->readTextFile("./test.txt");// a b c
+File::readTextFile("./test.txt");// a b c
 ```
 
 #### 创建并追加内容到文件(write)
@@ -808,8 +804,14 @@ $file->readTextFile("./test.txt");// a b c
 ```php
 //包括但不限于文本文件 .txt/.log/.md....
 write(string $fileName, string $content = ""): string
-$file = new File();
-$file->write("./123.txt", "这是测试文字");// D:\Daily\project\php\tp6\123.txt
+File::write("./123.txt", "这是测试文字");// D:\Daily\project\php\tp6\123.txt
+```
+
+#### 文件上传(upload)
+
+```php
+upload(array $file, string $path = "", string $name = ""): string
+File::upload($_FILES, "./upload") //./upload/20230222/20dc023d8889fb062fc2ec699c1d718c.db
 ```
 
 ### 版本更新
