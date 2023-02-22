@@ -822,7 +822,20 @@ File::write("./123.txt", "这是测试文字");// D:\Daily\project\php\tp6\123.t
 
 ```php
 upload(array $file, string $path = "", string $name = ""): string
-File::upload($_FILES, "./upload") //./upload/20230222/20dc023d8889fb062fc2ec699c1d718c.db
+File::upload($_FILES, "./upload"); //./upload/20230222/20dc023d8889fb062fc2ec699c1d718c.db
+```
+
+### 网络请求类工具（Http）
+
+```php
+use func\tools\Http;
+```
+
+#### curl请求(curl)
+
+```php
+curl(string $url, string $type = 'GET', array $data = [], array $headers = [])
+Http::curl("https://www.xxx.com");
 ```
 
 ### 版本更新
