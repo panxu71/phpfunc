@@ -554,4 +554,20 @@ class Str
         }
         return $str;
     }
+
+    /**
+     * 解析html页面
+     *
+     * @param string $html  html DoM
+     * @param string $xpaht
+     * @return object
+     */
+    public static function loadHtml(string $html, string $xpaht): object
+    {
+        $document = new \DOMDocument();
+        libxml_use_internal_errors(true); // 忽略html不严格的格式 - 过滤报错信息
+        $document->loadHTML($html);
+        $xpath = new \DOMXPath($document);
+        return $xpath->query($xpaht);
+    }
 }

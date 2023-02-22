@@ -219,6 +219,17 @@ cutStrSpecifySign(string $str, string $sign, int $number): string
 Str::cutStrSpecifySign("123/456/789/236", "/", 3); //236
 ```
 
+#### 解析html页面(loadHtml)
+
+```php
+loadHtml(string $html, string $xpaht): object
+Str::loadHtml((string)$html, "//div[contains(@class,'newscontent')]"); 
+// DOMNodeList Object
+// (
+//     [length] => 1
+// )
+```
+
 ### 数组函数说明
 
 ```php
