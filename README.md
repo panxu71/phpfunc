@@ -825,6 +825,14 @@ upload(array $file, string $path = "", string $name = ""): string
 File::upload($_FILES, "./upload"); //./upload/20230222/20dc023d8889fb062fc2ec699c1d718c.db
 ```
 
+#### 下载远程文件(downloadRemoteFile)
+
+```php
+downloadRemoteFile(string $fileUrl, string $location = "", string $extension = "jpg"): string
+File::downloadRemoteFile("https://imgs-qn.51miz.com/preview/video/00/00/16/42/V-164241-4CE4C39A.mp4", "./public/upload/"); 
+//D:\Daily\project\php\tp6\public\upload\20230223\bf13e453a502839d6ddbb345156e29c4.mp4
+```
+
 ### 网络请求类工具（Http）
 
 ```php
