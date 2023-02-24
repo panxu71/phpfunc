@@ -161,19 +161,14 @@ class File
         if (!isset($parseData["path"])) {
             return "";
         }
-        $fileInfo = pathinfo($parseData["path"]);
-
-        $extension = $extension != "" ? $extension : ($fileInfo["extension"] ?? "");
-
-        if ($extension == "") {
-            return "文件类型错误";
-        }
-        $content = Http::curl($fileUrl);
+        $fileInfo  = pathinfo($parseData["path"]);
+        $extension = isset($fileInfo["extension"]) ? $fileInfo["extension"] : $extension;
+        $content   = Http::curl($fileUrl);
         if (!$content) {
             return '获取文件错误';
         }
-        $fullName = self::folder($location) . Str::uuid(false, false) . ".{$extension}";
-        $saveName = File::write($fullName, $content);
+        $fullName  = self::folder($location) . Str::uuid(false, false) . ".{$extension}";
+        $saveName  = File::write($fullName, $content);
         return $saveName;
     }
 }
