@@ -15,16 +15,11 @@ use func\Str;
 class File
 {
     /**
-     * 项目根目录
+     * 设置默认目录
      *
-     * @var [type]
+     * @var string
      */
-    public $rootPath;
-
-    public function __construct()
-    {
-        $this->rootPath = getcwd();
-    }
+    public static $rootPath = "./public/upload";
 
     /**
      * 创建文件夹
@@ -34,7 +29,7 @@ class File
      */
     public static function folder(string $dir = ""): string
     {
-        $dir = ($dir == "" ? (new self)->rootPath : $dir) . DIRECTORY_SEPARATOR . date("Ymd");
+        $dir = ($dir == "" ? self::$rootPath : $dir) . DIRECTORY_SEPARATOR . date("Ymd");
         is_dir($dir) or mkdir(iconv("UTF-8", "GBK", $dir), 0777, true);
         return $dir . DIRECTORY_SEPARATOR;
     }
@@ -146,6 +141,28 @@ class File
         $fullName = self::folder($path) . $fileName . "." . $ext;
         move_uploaded_file($file["file"]["tmp_name"], $fullName);
         return $fullName;
+    }
+
+    /**
+     * 生成文件名
+     *
+     * @param string $fileUri   文件资源的路径（可以是远程资源）
+     * @param string $location  文件粗出位置
+     * @param string $extension 文件扩展名
+     * @return string
+     */
+    public static function fileName(string $fileUri, string $extension = "png", string $location = ""): string
+    {
+        $parseData = parse_url($fileUri);
+        if (!isset($parseData["path"])) {
+            return "文件错误";
+        }
+        $fileInfo  = pathinfo($parseData["path"]);
+        $extension = isset($fileInfo["extension"]) ? $fileInfo["extension"] : $extension;
+        if ($extension == "") {
+            return "文件扩展名错误";
+        }
+        return self::folder($location) . Str::uuid(false, false) . ".{$extension}";
     }
 
     /**
