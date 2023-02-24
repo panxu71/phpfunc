@@ -825,11 +825,11 @@ upload(array $file, string $path = "", string $name = ""): string
 File::upload($_FILES, "./upload"); //./upload/20230222/20dc023d8889fb062fc2ec699c1d718c.db
 ```
 
-#### 生成文件名(upload)
+#### 生成文件名(fileName)
 
 ```php
 fileName(string $fileUri, string $extension = "png", string $location = ""): string
-File::fileName($url, "mp4","abc"); //../public/upload\20230225\822c312989aadcb439956405d93f188d.mp4
+File::fileName($url, "mp4"); //../public/upload\20230225\822c312989aadcb439956405d93f188d.mp4
 ```
 
 #### 下载远程文件(downloadRemoteFile)
