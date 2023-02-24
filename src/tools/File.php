@@ -155,7 +155,7 @@ class File
      * @param  string $extension 文件类型(不存在文件扩展名时需指定，否则默认jpg)
      * @return string 返回文件路径
      */
-    public static function downloadRemoteFile(string $fileUrl, string $location = "", string $extension = "jpg"): string
+    public static function downloadRemoteFile(string $fileUrl, string $location = "", string $extension = "png"): string
     {
         $parseData = parse_url($fileUrl);
         if (!isset($parseData["path"])) {
@@ -163,14 +163,16 @@ class File
         }
         $fileInfo = pathinfo($parseData["path"]);
 
-        if ($extension == "" && !isset($fileInfo["extension"])) {
+        $extension = $extension != "" ? $extension : ($fileInfo["extension"] ?? "");
+
+        if ($extension == "") {
             return "文件类型错误";
         }
         $content = Http::curl($fileUrl);
         if (!$content) {
             return '获取文件错误';
         }
-        $fullName = self::folder($location) . Str::uuid(false, false) . ".{$fileInfo['extension']}";
+        $fullName = self::folder($location) . Str::uuid(false, false) . ".{$extension}";
         $saveName = File::write($fullName, $content);
         return $saveName;
     }
