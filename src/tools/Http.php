@@ -77,4 +77,38 @@ class Http
         curl_close($ch);
         return $response;
     }
+
+    /**
+     * 下载远程文件
+     *
+     * @param  string $imgUrl    远程文件url
+     * @param  string $location  文件存储位置
+     * @param  string $extension 文件类型(不存在文件扩展名时需指定，否则默认png)
+     * @return string 返回文件路径
+     * @return void
+     */
+    public static function downloadRemoteFile(string $fileUrl, string $extension = "png", string $location = "")
+    {
+        $fileName = File::fileName($fileUrl, $extension);
+        if (!$fileName) {
+            return '文件路径错误';
+        }
+        $ch = curl_init($fileUrl);
+        $fp = fopen($fileName, 'w+'); // open file handle
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // enable if you want
+        curl_setopt($ch, CURLOPT_FILE, $fp);          // output to file
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 1000);      // some large value to allow curl to run for a long time
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
+        // curl_setopt($ch, CURLOPT_VERBOSE, true);   // Enable this line to see debug prints
+        curl_exec($ch);
+        $httpInfo = curl_getinfo($ch);
+        if ($httpInfo["http_code"] != "200") {
+            unlink($fileName);
+            return "下载失败，请求耗时" . $httpInfo['total_time'] . '秒';
+        }
+        curl_close($ch);                              // closing curl handle
+        fclose($fp);                                  // closing file handle
+        return $fileName;
+    }
 }

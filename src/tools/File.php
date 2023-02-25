@@ -164,28 +164,4 @@ class File
         }
         return self::folder($location) . Str::uuid(false, false) . ".{$extension}";
     }
-
-    /**
-     * 下载远程文件
-     * @param  string $imgUrl    远程文件url
-     * @param  string $location  文件存储位置
-     * @param  string $extension 文件类型(不存在文件扩展名时需指定，否则默认jpg)
-     * @return string 返回文件路径
-     */
-    public static function downloadRemoteFile(string $fileUrl, string $location = "", string $extension = "png"): string
-    {
-        $parseData = parse_url($fileUrl);
-        if (!isset($parseData["path"])) {
-            return "";
-        }
-        $fileInfo  = pathinfo($parseData["path"]);
-        $extension = isset($fileInfo["extension"]) ? $fileInfo["extension"] : $extension;
-        $content   = Http::curl($fileUrl);
-        if (!$content) {
-            return '获取文件错误';
-        }
-        $fullName  = self::folder($location) . Str::uuid(false, false) . ".{$extension}";
-        $saveName  = File::write($fullName, $content);
-        return $saveName;
-    }
 }
