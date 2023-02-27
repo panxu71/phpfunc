@@ -845,11 +845,11 @@ curl(string $url, string $type = 'GET', array $data = [], array $headers = [])
 Http::curl("https://www.xxx.com");
 ```
 
-#### 下载远程文件(downloadRemoteFile)
+#### 下载远程文件(wget)
 
 ```php
-downloadRemoteFile(string $fileUrl, string $extension = "png", string $location = ""): string
-Http::downloadRemoteFile("https://desk-fd.zol-img.com.cn/t_s720x360c5/g7/M00/01/0A/ChMkK2MRbqKIU5fwAAQJUQ2Y1QgAAHGHQIRzxkABAlp409.jpg","png", "./public/upload/"); 
+wget(string $fileUrl, string $extension = "png", string $location = ""): string
+Http::wget("https://desk-fd.zol-img.com.cn/t_s720x360c5/g7/M00/01/0A/ChMkK2MRbqKIU5fwAAQJUQ2Y1QgAAHGHQIRzxkABAlp409.jpg","png", "./public/upload/"); 
 //./public/upload\20230225\d16f1f2bc388bf8fdec8dfeff2a838b7.jpg
 ```
 

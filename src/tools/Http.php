@@ -87,7 +87,7 @@ class Http
      * @return string 返回文件路径
      * @return void
      */
-    public static function downloadRemoteFile(string $fileUrl, string $extension = "png", string $location = "")
+    public static function wget(string $fileUrl, string $extension = "png", string $location = "")
     {
         $fileName = File::fileName($fileUrl, $extension);
         if (!$fileName) {
