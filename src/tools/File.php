@@ -134,34 +134,42 @@ class File
      * @param string $name  指定文件名
      * @return string
      */
-    public static function upload(array $file, string $path = "", string $name = ""): string
+    public static function upload(array $file, string $name = ""): string
     {
-        $ext      = pathinfo($file["file"]["name"])["extension"];
-        $fileName = ($name != "" ? $name : Str::uuid(false, false));
-        $fullName = self::folder($path) . $fileName . "." . $ext;
+        $extension = pathinfo($file["file"]["name"])["extension"];
+        $fullName  = $name != "" ? $name : self::name($extension);
         move_uploaded_file($file["file"]["tmp_name"], $fullName);
         return $fullName;
     }
 
     /**
-     * 生成文件名
+     * 获取文件扩展名
      *
-     * @param string $fileUri   文件资源的路径（可以是远程资源）
-     * @param string $location  文件粗出位置
-     * @param string $extension 文件扩展名
+     * @param string $fileUri
      * @return string
      */
-    public static function fileName(string $fileUri, string $extension = "png", string $location = ""): string
+    public static function extension(string $fileUri): string
     {
         $parseData = parse_url($fileUri);
         if (!isset($parseData["path"])) {
-            return "文件错误";
+            return false; //"文件错误"
         }
         $fileInfo  = pathinfo($parseData["path"]);
-        $extension = isset($fileInfo["extension"]) ? $fileInfo["extension"] : $extension;
-        if ($extension == "") {
-            return "文件扩展名错误";
+        if (!isset($fileInfo["extension"])) {
+            return false; //文件扩展名错误
         }
+        return $fileInfo["extension"];
+    }
+
+    /**
+     * 生成文件名
+     *
+     * @param string $extension 文件扩展名
+     * @param string $location  文件存储位置
+     * @return string
+     */
+    public static function name(string $extension = "png", string $location = ""): string
+    {
         return self::folder($location) . Str::uuid(false, false) . ".{$extension}";
     }
 }

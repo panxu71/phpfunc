@@ -825,10 +825,17 @@ upload(array $file, string $path = "", string $name = ""): string
 File::upload($_FILES, "./upload"); //./upload/20230222/20dc023d8889fb062fc2ec699c1d718c.db
 ```
 
+#### 获取文件扩展名(extension)
+
+```php
+extension(string $fileUri): string
+File::extension("./public/upload/20230228/186ce2b3171c675485842abb8e248862.png"); //png
+```
+
 #### 生成文件名(fileName)
 
 ```php
-fileName(string $fileUri, string $extension = "png", string $location = ""): string
+name(string $fileUri, string $extension = "png", string $location = ""): string
 File::fileName($url, "mp4"); //../public/upload\20230225\822c312989aadcb439956405d93f188d.mp4
 ```
 
