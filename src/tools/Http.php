@@ -116,7 +116,6 @@ class Http
      * 解析远程图片
      *
      * @param string $imgUrl   图片路径
-     * @param string $extension 
      * @return void
      */
     public static function parseRemoteImage(string $imgUrl = "")
