@@ -860,6 +860,12 @@ Http::wget("https://desk-fd.zol-img.com.cn/t_s720x360c5/g7/M00/01/0A/ChMkK2MRbqK
 //./public/upload\20230225\d16f1f2bc388bf8fdec8dfeff2a838b7.jpg
 ```
 
+#### 解析远程图片(parseRemoteImage)
+
+```php
+// 解决临时引用远程图片显示“未经允许不可引用”，注意该方法主要是用于临时测试，禁止用于图片盗链
+parseRemoteImage(string $imgUrl = "")
+Http::parseRemoteImage("https://gitee.com/panxu11/imagehost/raw/master/images/20220228233400.png");
 ### 版本更新
 
 |版本 |日期 |说明  |
