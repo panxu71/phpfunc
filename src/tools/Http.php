@@ -89,7 +89,8 @@ class Http
      */
     public static function wget(string $fileUrl, string $extension = "png", string $location = "")
     {
-        $fileName = File::name($fileUrl, $extension);
+        $extension = File::extension($fileUrl);
+        $fileName  = File::name($extension, $location);
         if (!$fileName) {
             return '文件路径错误';
         }

@@ -30,7 +30,7 @@ class File
     public static function folder(string $dir = ""): string
     {
         $rootPath = getcwd() . DIRECTORY_SEPARATOR . (PHP_OS == "WINNT" ? "public" . DIRECTORY_SEPARATOR : "") . "upload";
-        $dir = ($dir == "" ?  $rootPath : $dir) . DIRECTORY_SEPARATOR . date("Ymd");
+        $dir      =  $rootPath . DIRECTORY_SEPARATOR . ($dir ?? "") . DIRECTORY_SEPARATOR . date("Ymd");
         is_dir($dir) or mkdir(iconv("UTF-8", "GBK", $dir), 0777, true);
         return $dir . DIRECTORY_SEPARATOR;
     }
