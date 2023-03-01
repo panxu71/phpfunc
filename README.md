@@ -760,11 +760,18 @@ Random::chineseCharacters(5);//啥掀嘉蝗檄
 use func\tools\File;
 ```
 
+#### 获取文件资源路径(path)
+
+```php
+path(string $dir = ""):string 
+File::path(); // D:\work\project\custom\project1\public\upload\
+```
+
 #### 创建文件夹(folder)
 
 ```php
 folder(string $dir = ""):string 
-File::folder("D:\\work\\project\\custom\\framework"); // /usr/test/20230222
+File::folder(); // D:\work\project\custom\project1\public\upload\20230301\
 ```
 
 #### 读取目录文件信息(readFolder)
@@ -814,15 +821,15 @@ File::readTextFile("./test.txt");// a b c
 
 ```php
 //包括但不限于文本文件 .txt/.log/.md....
-write(string $fileName, string $content = ""): string
-File::write("./123.txt", "这是测试文字");// D:\Daily\project\php\tp6\123.txt
+(string $content = "", string $file = "", string $extension = "txt"): string
+File::write("这是测试文字", "123.txt");// D:\Daily\project\php\tp6\123.txt
 ```
 
 #### 文件上传(upload)
 
 ```php
-upload(array $file, string $path = "", string $name = ""): string
-File::upload($_FILES, "./upload"); //./upload/20230222/20dc023d8889fb062fc2ec699c1d718c.db
+upload(array $file, string $fileName = ""): string
+File::upload($_FILES, "./upload"); //./upload/20230222/20dc023d8889fb062fc2ec699c1d718c.jpg
 ```
 
 #### 获取文件扩展名(extension)
@@ -832,7 +839,7 @@ extension(string $fileUri): string
 File::extension("./public/upload/20230228/186ce2b3171c675485842abb8e248862.png"); //png
 ```
 
-#### 生成文件名(fileName)
+#### 生成文件名(name)
 
 ```php
 name(string $fileUri, string $extension = "png", string $location = ""): string
