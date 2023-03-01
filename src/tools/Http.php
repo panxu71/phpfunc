@@ -21,7 +21,7 @@ class Http
      * @param array $headers
      * @return void
      */
-    public static function curl(string $url, string $type = 'GET', array $data = [], array $headers = [])
+    public static function curl(string $url, array|string $data = "", string $type = 'POST', array $headers = [])
     {
         $ch = curl_init();
         //判断ssl连接方式
@@ -33,10 +33,11 @@ class Http
         $connttime = 300;  //连接等待时间500毫秒
         $timeout   = 15000; //超时时间15秒
 
-        $requestData = is_array($data) ? http_build_query($data) : ($data ?? '');
-
+        if ($type == "GET") {
+            $requestData = is_array($data) ? http_build_query($data) : ($data ?? '');
+        }
         //设置抓取的url
-        curl_setopt($ch, CURLOPT_URL, $url . ($requestData ? "?$requestData" : ''));
+        curl_setopt($ch, CURLOPT_URL, $url . (isset($requestData) ? "?$requestData" : ''));
         //设置头文件的信息作为数据流输出
         curl_setopt($ch, CURLOPT_HEADER, 0);
         //设置获取的信息以文件流的形式返回，而不是直接输出
@@ -51,24 +52,23 @@ class Http
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, $connttime);
         //超时时间
         curl_setopt($ch, CURLOPT_TIMEOUT_MS, $timeout);
-        //设置HEADER头部信息
-        curl_setopt($ch, CURLOPT_HTTPHEADER, count($headers) ? $headers : ["Content-type: application/json"]);
-
+        //设置HEADER头部信息["Content-type: application/json"]  
+        count($headers) && curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         switch ($type) {
             case "GET":
                 curl_setopt($ch, CURLOPT_HTTPGET, true);
                 break;
             case "POST":
                 curl_setopt($ch, CURLOPT_POST, 1);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $requestData);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
                 break;
             case "PUT":
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $requestData);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
                 break;
             case "DELETE":
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $requestData);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
                 break;
         }
 
@@ -81,16 +81,16 @@ class Http
     /**
      * 下载远程文件
      *
-     * @param  string $imgUrl    远程文件url
-     * @param  string $location  文件存储位置
-     * @param  string $extension 文件类型(不存在文件扩展名时需指定，否则默认png)
+     * @param string $imgUrl    远程文件url
+     * @param string $location  文件存储位置
+     * @param string $extension 文件类型(不存在文件扩展名时需指定，否则默认png)
      * @return string 返回文件路径
      * @return void
      */
     public static function wget(string $fileUrl, string $extension = "png", string $location = "")
     {
-        $extension = File::extension($fileUrl);
-        $fileName  = File::name($extension, $location);
+        $location = $location != "" ? "upload" . DIRECTORY_SEPARATOR . $location : "";
+        $fileName = File::folder($location) . File::name($extension);
         if (!$fileName) {
             return '文件路径错误';
         }
@@ -143,5 +143,25 @@ class Http
         curl_close($ch);
         header('Content-type: image/jpg');
         exit($result);
+    }
+
+    /**
+     * 文件上传
+     *
+     * @param string $file 文件名称
+     * @param string $url  上传地址
+     * @return string
+     */
+    public static function upload(string $file = "", string $url = ""): string
+    {
+        // 判断相对路径
+        if (!file_exists($file)) {
+            $file = File::path() . $file;
+        }
+        // 判断文件是否存在
+        if (!file_exists($file)) {
+            return "文件不存在";
+        }
+        return self::curl($url, ['file' => new \CURLFile(realpath($file))]);
     }
 }

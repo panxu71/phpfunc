@@ -873,6 +873,15 @@ Http::wget("https://desk-fd.zol-img.com.cn/t_s720x360c5/g7/M00/01/0A/ChMkK2MRbqK
 // 解决临时引用远程图片显示“未经允许不可引用”，注意该方法主要是用于临时测试，禁止用于图片盗链
 parseRemoteImage(string $imgUrl = "")
 Http::parseRemoteImage("https://gitee.com/panxu11/imagehost/raw/master/images/20220228233400.png");
+```
+
+#### 上传文件(upload)
+
+```php
+upload(string $file = "", string $url = ""): string
+Http::upload("D:\\desktop\\material\\background\\01梦想.png", "http://test.com");//D:\work\project\custom\project1\public\upload\20230301\1cac611791014005aebf174ed602fa69.png
+```
+
 ### 版本更新
 
 |版本 |日期 |说明  |
