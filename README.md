@@ -763,14 +763,14 @@ use func\tools\File;
 #### 获取文件资源路径(path)
 
 ```php
-path(string $dir = ""):string 
+path(string $location = ""): string
 File::path(); // D:\work\project\custom\project1\public\upload\
 ```
 
 #### 创建文件夹(folder)
 
 ```php
-folder(string $dir = ""):string 
+folder(string $location = ""): string
 File::folder(); // D:\work\project\custom\project1\public\upload\20230301\
 ```
 

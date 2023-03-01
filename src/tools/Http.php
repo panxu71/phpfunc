@@ -21,7 +21,7 @@ class Http
      * @param array $headers
      * @return void
      */
-    public static function curl(string $url, array|string $data = "", string $type = 'POST', array $headers = [])
+    public static function curl(string $url, array $data = [], string $type = 'POST', array $headers = [])
     {
         $ch = curl_init();
         //判断ssl连接方式
@@ -87,7 +87,7 @@ class Http
      * @return string 返回文件路径
      * @return void
      */
-    public static function wget(string $fileUrl, string $extension = "png", string $location = "")
+    public static function wget(string $fileUrl, string $extension = "png", string $location = ""): string
     {
         $location = $location != "" ? "upload" . DIRECTORY_SEPARATOR . $location : "";
         $fileName = File::folder($location) . File::name($extension);
