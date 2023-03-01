@@ -15,11 +15,15 @@ use func\Str;
 class File
 {
     /**
-     * 设置默认目录
+     * 获取文件资源路径
      *
-     * @var string
+     * @return string
      */
-    public static $rootPath = "./public/upload";
+    public static function path(): string
+    {
+        $rootPath = PHP_OS == "WINNT" ? "public" . DIRECTORY_SEPARATOR : "";
+        return getcwd() . DIRECTORY_SEPARATOR . $rootPath . "upload";
+    }
 
     /**
      * 创建文件夹
@@ -29,8 +33,7 @@ class File
      */
     public static function folder(string $dir = ""): string
     {
-        $rootPath = getcwd() . DIRECTORY_SEPARATOR . (PHP_OS == "WINNT" ? "public" . DIRECTORY_SEPARATOR : "") . "upload";
-        $dir      =  $rootPath . DIRECTORY_SEPARATOR . ($dir != "" ? ($dir . DIRECTORY_SEPARATOR) : "")  . date("Ymd");
+        $dir = ($dir == "" ? self::path() : $dir) . DIRECTORY_SEPARATOR . date("Ymd");
         is_dir($dir) or mkdir(iconv("UTF-8", "GBK", $dir), 0777, true);
         return $dir . DIRECTORY_SEPARATOR;
     }
