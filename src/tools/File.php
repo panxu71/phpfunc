@@ -22,7 +22,7 @@ class File
     public static function path(): string
     {
         $rootPath = PHP_OS == "WINNT" ? "public" . DIRECTORY_SEPARATOR : "";
-        return getcwd() . DIRECTORY_SEPARATOR . $rootPath . "upload";
+        return getcwd() . DIRECTORY_SEPARATOR . $rootPath . "upload" . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -33,7 +33,7 @@ class File
      */
     public static function folder(string $dir = ""): string
     {
-        $dir = ($dir == "" ? self::path() : $dir) . DIRECTORY_SEPARATOR . date("Ymd");
+        $dir = ($dir == "" ? self::path() : $dir . DIRECTORY_SEPARATOR)  . date("Ymd");
         is_dir($dir) or mkdir(iconv("UTF-8", "GBK", $dir), 0777, true);
         return $dir . DIRECTORY_SEPARATOR;
     }
