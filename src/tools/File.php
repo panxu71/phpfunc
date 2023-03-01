@@ -121,12 +121,20 @@ class File
      * @param string $content  内容
      * @return string  返回文件绝对路径
      */
-    public static function write(string $fileName, string $content = ""): string
+    public static function write(string $content = "", string $file = "", string $extension = "txt"): string
     {
+        if (!preg_match("/\.\w+$/", $file)) {
+            $file .= "." . $extension;
+        }
+        $fileName = self::folder("write") . $file;
+        if (!preg_match("/\w+\.\w+$/", $fileName)) {
+            $fileName = self::name($extension, "write");
+        }
         // 判断文件是否存在
         $file = fopen($fileName, file_exists($fileName) ? 'a' : "w") or die("Unable to open file!");
         fwrite($file, $content);
         fclose($file);
+
         return realpath($fileName);
     }
 
@@ -138,10 +146,10 @@ class File
      * @param string $name  指定文件名
      * @return string
      */
-    public static function upload(array $file, string $name = ""): string
+    public static function upload(array $file, string $fileName = ""): string
     {
         $extension = pathinfo($file["file"]["name"])["extension"];
-        $fullName  = $name != "" ? $name : self::name($extension);
+        $fullName  = $fileName != "" ? $fileName : self::name($extension);
         move_uploaded_file($file["file"]["tmp_name"], $fullName);
         return $fullName;
     }
