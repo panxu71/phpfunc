@@ -855,7 +855,7 @@ use func\tools\Http;
 #### curl请求(curl)
 
 ```php
-curl(string $url, string $type = 'GET', array $data = [], array $headers = [])
+curl(string $url, array $data = [], string $type = 'POST', array $headers = [])
 Http::curl("https://www.xxx.com");
 ```
 
