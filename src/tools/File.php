@@ -128,13 +128,12 @@ class File
         }
         $fileName = self::folder("write") . $file;
         if (!preg_match("/\w+\.\w+$/", $fileName)) {
-            $fileName = self::name($extension, "write");
+            $fileName = self::folder("write") . self::name($extension);
         }
         // 判断文件是否存在
         $file = fopen($fileName, file_exists($fileName) ? 'a' : "w") or die("Unable to open file!");
         fwrite($file, $content);
         fclose($file);
-
         return realpath($fileName);
     }
 
@@ -149,9 +148,11 @@ class File
     public static function upload(array $file, string $fileName = ""): string
     {
         $extension = pathinfo($file["file"]["name"])["extension"];
-        $fullName  = $fileName != "" ? $fileName : self::name($extension);
-        move_uploaded_file($file["file"]["tmp_name"], $fullName);
-        return $fullName;
+        if ($fileName == "") {
+            $fileName = self::folder() . self::name($extension);
+        }
+        move_uploaded_file($file["file"]["tmp_name"], $fileName);
+        return $fileName;
     }
 
     /**
@@ -180,8 +181,8 @@ class File
      * @param string $location  文件存储位置
      * @return string
      */
-    public static function name(string $extension = "png", string $location = ""): string
+    public static function name(string $extension = "png"): string
     {
-        return self::folder($location) . Str::uuid(false, false) . ".{$extension}";
+        return Str::uuid(false, false) . ".{$extension}";
     }
 }
