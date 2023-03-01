@@ -19,10 +19,10 @@ class File
      *
      * @return string
      */
-    public static function path(): string
+    public static function path(string $location = ""): string
     {
         $rootPath = PHP_OS == "WINNT" ? "public" . DIRECTORY_SEPARATOR : "";
-        return getcwd() . DIRECTORY_SEPARATOR . $rootPath . "upload" . DIRECTORY_SEPARATOR;
+        return getcwd() . DIRECTORY_SEPARATOR . $rootPath . ($location != "" ? $location : "upload") . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -31,9 +31,9 @@ class File
      * @param string $dir 文件夹名称
      * @return string 文件夹路径
      */
-    public static function folder(string $dir = ""): string
+    public static function folder(string $location = ""): string
     {
-        $dir = ($dir == "" ? self::path() : $dir . DIRECTORY_SEPARATOR)  . date("Ymd");
+        $dir = self::path($location)  . date("Ymd");
         is_dir($dir) or mkdir(iconv("UTF-8", "GBK", $dir), 0777, true);
         return $dir . DIRECTORY_SEPARATOR;
     }
