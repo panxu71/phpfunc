@@ -164,4 +164,28 @@ class Http
         }
         return self::curl($url, ['file' => new \CURLFile(realpath($file))]);
     }
+
+    /**
+     * 判断远程文件是否存在
+     *
+     * @param string $file
+     * @return boolean
+     */
+    public static function checkRemoteFileExists(string $file): bool
+    {
+        // 该方式也可以判断 但需开启allow_url_open状态
+        // if (@fopen($image, 'r')) {
+        //     echo 'File Exits';
+        // } else {
+        //     echo 'File Do Not Exits';
+        // }
+        $curl = curl_init($file);
+        curl_setopt($curl, CURLOPT_NOBODY, true); // 不取回数据
+        $found = false;
+        if (curl_exec($curl) !== false) { // 发送请求如果请求没有发送失败
+            $found = curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200; // 再检查http响应码是否为200
+        }
+        curl_close($curl);
+        return $found;
+    }
 }

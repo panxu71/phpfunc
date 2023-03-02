@@ -882,7 +882,12 @@ upload(string $file = "", string $url = ""): string
 Http::upload("D:\\desktop\\material\\background\\01梦想.png", "http://test.com");//D:\work\project\custom\project1\public\upload\20230301\1cac611791014005aebf174ed602fa69.png
 ```
 
-### 版本更新
+#### 判断远程文件是否存在(checkRemoteFileExists)
+
+```php
+checkRemoteFileExists(string $file = ""): string
+Http::checkRemoteFileExists("D:\work\1cac611791014005aebf174ed602fa69.png"): bool;//bool(false)
+```
 
 |版本 |日期 |说明  |
 |:----:   | :----: | ----  |
