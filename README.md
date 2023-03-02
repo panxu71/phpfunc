@@ -846,6 +846,14 @@ name(string $folder = "", string $extension = "png"): string
 File::fileName("test", "mp4"); //../public/upload/test/20230225/822c312989aadcb439956405d93f188d.mp4
 ```
 
+#### 解析远程图片(fileToBinaryData)
+
+```php
+// 解决临时引用远程图片显示“未经允许不可引用”，注意该方法主要是用于临时测试，禁止用于图片盗链
+fileToBinaryData(string $url = "")
+File::fileToBinaryData("https://xx.cn/g7/M00/01/0A/a.jpg");
+```
+
 ### 网络请求类工具（Http）
 
 ```php
@@ -864,6 +872,20 @@ check(string $uri): bool
 ```php
 wget(string $fileUrl, string $location = ""): string
 Http::wget("https://xx.cn/g7/M00/01/0A/a.jpg"); //D:\work\project\custom\project1\mp4\20230302\82e71948df04cb0cb8df35af538.jpg
+```
+
+#### CURL请求(curl)
+
+```php
+curl(string $url, array|null $data = null, string $method = "GET", array $headers = [])
+Http::curl("https://xx.cn/g7/M00/01/0A/a.jpg"); 
+```
+
+#### 远程文件转二进制流(fileToBinaryData)
+
+```php
+fileToBinaryData(string $url = "")
+Http::fileToBinaryData("https://xx.cn/g7/M00/01/0A/a.jpg"); 
 ```
 
 |版本 |日期 |说明  |

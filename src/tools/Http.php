@@ -79,4 +79,49 @@ class Http
         fclose($fp);
         return $fileName;
     }
+
+    /**
+     * curl请求
+     *
+     * @param string $url
+     * @param array|null $data
+     * @param string $method
+     * @param array $headers
+     * @return void
+     */
+    public static function curl(string $url, array|null $data = null, string $method = "GET", array $headers = [])
+    {
+        if (!(new self)->check($url)) {
+            return "请求失败";
+        }
+        curl_setopt(self::$ch, CURLOPT_NOBODY, false);
+        curl_setopt(self::$ch, CURLOPT_URL, $url);
+        curl_setopt(self::$ch, CURLOPT_HEADER, false); //不返回头部信息
+        if (strtolower($method) != 'get') {
+            curl_setopt(self::$ch, CURLOPT_POST, 1);
+        }
+        $data != null && curl_setopt(self::$ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        count($headers) && curl_setopt(self::$ch, CURLOPT_HTTPHEADER, $headers); //请求头
+        curl_setopt(self::$ch, CURLOPT_RETURNTRANSFER, 1);  //结果是否显示出来，1不显示，0显示    
+        $result = curl_exec(self::$ch);
+        curl_close(self::$ch);
+        return $result;
+    }
+
+    /**
+     * 远程文件转二进制流
+     *
+     * @param string $fileUri
+     * @return void
+     */
+    public static function fileToBinaryData(string $url = "")
+    {
+        if (!(new self)->check($url)) {
+            return "请求失败";
+        }
+        if (!preg_match("/^https|http/", $url)) {
+            return "远程文件不存在";
+        }
+        return self::curl($url, null, "GET", ["Host:" . parse_url($url)['host']]);
+    }
 }

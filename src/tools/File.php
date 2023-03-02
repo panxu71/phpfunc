@@ -187,4 +187,16 @@ class File
     {
         return ($folder != "" ? self::folder($folder) : "") . Str::uuid(false, false) . ".{$extension}";
     }
+
+    /**
+     * 解析远程图片
+     *
+     * @param string $imgUrl   图片路径
+     * @return void
+     */
+    public static function parseImage(string $imgUrl = "")
+    {
+        header('Content-type: image/jpg');
+        exit(Http::fileToBinaryData($imgUrl));
+    }
 }
