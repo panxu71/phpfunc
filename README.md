@@ -852,41 +852,18 @@ File::fileName("test", "mp4"); //../public/upload/test/20230225/822c312989aadcb4
 use func\tools\Http;
 ```
 
-#### curl请求(curl)
+#### 检测请求链接(check)
 
 ```php
-curl(string $url, array $data = [], string $type = 'POST', array $headers = [])
-Http::curl("https://www.xxx.com");
+check(string $uri): bool
+(new Http)->check($uri)
 ```
 
 #### 下载远程文件(wget)
 
 ```php
-wget(string $fileUrl, string $extension = "png", string $location = ""): string
-Http::wget("https://desk-fd.zol-img.com.cn/t_s720x360c5/g7/M00/01/0A/ChMkK2MRbqKIU5fwAAQJUQ2Y1QgAAHGHQIRzxkABAlp409.jpg","png", "./public/upload/"); 
-//./public/upload\20230225\d16f1f2bc388bf8fdec8dfeff2a838b7.jpg
-```
-
-#### 解析远程图片(parseRemoteImage)
-
-```php
-// 解决临时引用远程图片显示“未经允许不可引用”，注意该方法主要是用于临时测试，禁止用于图片盗链
-parseRemoteImage(string $imgUrl = "")
-Http::parseRemoteImage("https://gitee.com/panxu11/imagehost/raw/master/images/20220228233400.png");
-```
-
-#### 上传文件(upload)
-
-```php
-upload(string $file = "", string $url = ""): string
-Http::upload("D:\\desktop\\material\\background\\01梦想.png", "http://test.com");//D:\work\project\custom\project1\public\upload\20230301\1cac611791014005aebf174ed602fa69.png
-```
-
-#### 判断远程文件是否存在(checkRemoteFileExists)
-
-```php
-checkRemoteFileExists(string $file = ""): string
-Http::checkRemoteFileExists("D:\work\1cac611791014005aebf174ed602fa69.png"): bool;//bool(false)
+wget(string $fileUrl, string $location = ""): string
+Http::wget("https://xx.cn/g7/M00/01/0A/a.jpg"); //D:\work\project\custom\project1\mp4\20230302\82e71948df04cb0cb8df35af538.jpg
 ```
 
 |版本 |日期 |说明  |
