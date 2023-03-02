@@ -821,7 +821,7 @@ File::readTextFile("./test.txt");// a b c
 
 ```php
 //包括但不限于文本文件 .txt/.log/.md....
-(string $content = "", string $file = "", string $extension = "txt"): string
+write(string $content = "", string $file = "", string $extension = "txt"): string
 File::write("这是测试文字", "123.txt");// D:\Daily\project\php\tp6\123.txt
 ```
 
@@ -842,8 +842,8 @@ File::extension("./public/upload/20230228/186ce2b3171c675485842abb8e248862.png")
 #### 生成文件名(name)
 
 ```php
-name(string $fileUri, string $extension = "png", string $location = ""): string
-File::fileName($url, "mp4"); //../public/upload\20230225\822c312989aadcb439956405d93f188d.mp4
+name(string $folder = "", string $extension = "png"): string
+File::fileName("test", "mp4"); //../public/upload/test/20230225/822c312989aadcb439956405d93f188d.mp4
 ```
 
 ### 网络请求类工具（Http）

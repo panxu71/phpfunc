@@ -126,9 +126,11 @@ class File
         if (!preg_match("/\.\w+$/", $file)) {
             $file .= "." . $extension;
         }
-        $fileName = self::folder("write") . $file;
+        $pathinfo = pathinfo($file);
+        $folder = $pathinfo["dirname"] != "." ? $pathinfo["dirname"] : "write";
+        $fileName = self::folder($folder) . $pathinfo["basename"];
         if (!preg_match("/\w+\.\w+$/", $fileName)) {
-            $fileName = self::folder("write") . self::name($extension);
+            $fileName = self::name("", $extension);
         }
         // 判断文件是否存在
         $file = fopen($fileName, file_exists($fileName) ? 'a' : "w") or die("Unable to open file!");
@@ -149,7 +151,7 @@ class File
     {
         $extension = pathinfo($file["file"]["name"])["extension"];
         if ($fileName == "") {
-            $fileName = self::folder() . self::name($extension);
+            $fileName = self::name("", $extension);
         }
         move_uploaded_file($file["file"]["tmp_name"], $fileName);
         return $fileName;
@@ -178,11 +180,11 @@ class File
      * 生成文件名
      *
      * @param string $extension 文件扩展名
-     * @param string $location  文件存储位置
+     * @param string $folder    文件存储位置
      * @return string
      */
-    public static function name(string $extension = "png"): string
+    public static function name(string $folder = "", string $extension = "png"): string
     {
-        return Str::uuid(false, false) . ".{$extension}";
+        return ($folder != "" ? self::folder($folder) : "") . Str::uuid(false, false) . ".{$extension}";
     }
 }
