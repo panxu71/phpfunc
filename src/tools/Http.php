@@ -71,7 +71,7 @@ class Http
             strpos($httpInfo["content_type"], 'image/') !== false && $extension = "png";
             strpos($httpInfo["content_type"], 'vodeo/') !== false && $extension = "mp4";
         }
-        $fileName = File::name($location != "" ? $location : $extension, $extension);
+        $fileName = File::name($location, $extension);
         $fp       = fopen($fileName, 'w+');
         curl_setopt(self::$ch, CURLOPT_FILE, $fp);
         curl_exec(self::$ch);
@@ -91,9 +91,7 @@ class Http
      */
     public static function curl(string $url, array|null $data = null, string $method = "GET", array $headers = [])
     {
-        if (!(new self)->check($url)) {
-            return "请求失败";
-        }
+        new Http($url);
         curl_setopt(self::$ch, CURLOPT_NOBODY, false);
         curl_setopt(self::$ch, CURLOPT_URL, $url);
         curl_setopt(self::$ch, CURLOPT_HEADER, false); //不返回头部信息

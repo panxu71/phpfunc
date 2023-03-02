@@ -821,7 +821,7 @@ File::readTextFile("./test.txt");// a b c
 
 ```php
 //包括但不限于文本文件 .txt/.log/.md....
-write(string $content = "", string $file = "", string $extension = "txt"): string
+write(string $content = "", string $name = "", string $ext = "txt"): string
 File::write("这是测试文字", "123.txt");// D:\Daily\project\php\tp6\123.txt
 ```
 
@@ -832,26 +832,19 @@ upload(array $file, string $fileName = ""): string
 File::upload($_FILES, "./upload"); //./upload/20230222/20dc023d8889fb062fc2ec699c1d718c.jpg
 ```
 
-#### 获取文件扩展名(extension)
-
-```php
-extension(string $fileUri): string
-File::extension("./public/upload/20230228/186ce2b3171c675485842abb8e248862.png"); //png
-```
-
 #### 生成文件名(name)
 
 ```php
-name(string $folder = "", string $extension = "png"): string
+name(string $fileName = "", $ext = "png"): string
 File::fileName("test", "mp4"); //../public/upload/test/20230225/822c312989aadcb439956405d93f188d.mp4
 ```
 
-#### 解析远程图片(fileToBinaryData)
+#### 解析远程图片(parseImage)
 
 ```php
 // 解决临时引用远程图片显示“未经允许不可引用”，注意该方法主要是用于临时测试，禁止用于图片盗链
-fileToBinaryData(string $url = "")
-File::fileToBinaryData("https://xx.cn/g7/M00/01/0A/a.jpg");
+parseImage(string $imgUrl = "")
+File::parseImage("https://xx.cn/g7/M00/01/0A/a.jpg");
 ```
 
 ### 网络请求类工具（Http）

@@ -130,6 +130,22 @@ class File
     }
 
     /**
+     * 创建并追加内容到文件
+     *
+     * @param string $fileName 文件名
+     * @param string $content  内容
+     * @return string  返回文件绝对路径
+     */
+    public static function write(string $content = "", string $name = "", string $ext = "txt"): string
+    {
+        $fileName = self::name($name, $ext, true);
+        $file = fopen($fileName, file_exists($fileName) ? 'a' : "w") or die("Unable to open file!");
+        fwrite($file, $content);
+        fclose($file);
+        return realpath($fileName);
+    }
+
+    /**
      * 生成文件名
      *
      * @param string $fileName  指定文件名
