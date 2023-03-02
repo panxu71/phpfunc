@@ -115,31 +115,6 @@ class File
     }
 
     /**
-     * 创建并追加内容到文件
-     *
-     * @param string $fileName 文件名
-     * @param string $content  内容
-     * @return string  返回文件绝对路径
-     */
-    public static function write(string $content = "", string $file = "", string $extension = "txt"): string
-    {
-        if (!preg_match("/\.\w+$/", $file)) {
-            $file .= "." . $extension;
-        }
-        $pathinfo = pathinfo($file);
-        $folder = $pathinfo["dirname"] != "." ? $pathinfo["dirname"] : "write";
-        $fileName = self::folder($folder) . $pathinfo["basename"];
-        if (!preg_match("/\w+\.\w+$/", $fileName)) {
-            $fileName = self::name("", $extension);
-        }
-        // 判断文件是否存在
-        $file = fopen($fileName, file_exists($fileName) ? 'a' : "w") or die("Unable to open file!");
-        fwrite($file, $content);
-        fclose($file);
-        return realpath($fileName);
-    }
-
-    /**
      * 文件上传
      *
      * @param array $file   文件数组（$_FILES）
@@ -150,42 +125,32 @@ class File
     public static function upload(array $file, string $fileName = ""): string
     {
         $extension = pathinfo($file["file"]["name"])["extension"];
-        if ($fileName == "") {
-            $fileName = self::name("", $extension);
-        }
-        move_uploaded_file($file["file"]["tmp_name"], $fileName);
+        move_uploaded_file($file["file"]["tmp_name"], self::name($fileName, $extension));
         return $fileName;
-    }
-
-    /**
-     * 获取文件扩展名
-     *
-     * @param string $fileUri
-     * @return string
-     */
-    public static function extension(string $fileUri): string
-    {
-        $parseData = parse_url($fileUri);
-        if (!isset($parseData["path"])) {
-            return false; //"文件错误"
-        }
-        $fileInfo  = pathinfo($parseData["path"]);
-        if (!isset($fileInfo["extension"])) {
-            return false; //文件扩展名错误
-        }
-        return $fileInfo["extension"];
     }
 
     /**
      * 生成文件名
      *
-     * @param string $extension 文件扩展名
-     * @param string $folder    文件存储位置
+     * @param string $fileName  指定文件名
+     * @param string $extension 指定文件扩展名
      * @return string
      */
-    public static function name(string $folder = "", string $extension = "png"): string
+    public static function name(string $fileName = "", $ext = "png"): string
     {
-        return ($folder != "" ? self::folder($folder) : "") . Str::uuid(false, false) . ".{$extension}";
+        $strname          = Str::uuid(false, false);
+        $truename         = "$strname.$ext";
+        $dirname          = "upload";
+        if ($fileName != "") {
+            $pathinfo     = pathinfo($fileName);
+            $dirname      = isset($pathinfo["dirname"]) && $pathinfo["dirname"] != "." ? $pathinfo["dirname"] : $dirname;
+            $extension    = $pathinfo["extension"] ?? $ext;
+            $truename     = isset($pathinfo["extension"]) && $pathinfo["extension"] != "" ? $pathinfo["basename"] : rtrim($pathinfo["basename"], '.') . "." . $extension;
+            if (file_exists(self::folder($dirname) .  $truename)) {
+                $truename = "$strname.$extension";
+            }
+        }
+        return self::folder($dirname) . $truename;
     }
 
     /**
