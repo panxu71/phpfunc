@@ -830,6 +830,13 @@ File::write("这是测试文字", "123.txt");// D:\Daily\project\php\tp6\123.txt
 ```php
 upload(array $file, string $fileName = ""): string
 File::upload($_FILES, "./upload"); //./upload/20230222/20dc023d8889fb062fc2ec699c1d718c.jpg
+# 使用方法
+$file = File::path() . $image;
+if (!file_exists($file)) {
+    return "文件不存在";
+}
+$result =  Http::curl("http://tp6.com", ['file' => new \CURLFile(realpath($file))], "POST");
+// 在域名对应的url(http://tp6.com)对应方法直接调用File::upload方法即可
 ```
 
 #### 生成文件名(name)
