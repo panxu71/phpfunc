@@ -167,7 +167,7 @@ class File
 
         self::folder($dirname);
         $fullname      = self::path($dirname) . ($filename ?? $rname) . ".{$extension}";
-        if ($isrepeat && file_exists($fullname)) {
+        if (!$isrepeat && file_exists($fullname)) {
             $fullname  = self::path($dirname) . "$rname.{$extension}";
         }
         return $fullname;
