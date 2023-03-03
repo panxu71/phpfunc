@@ -835,7 +835,7 @@ File::upload($_FILES, "./upload"); //./upload/20230222/20dc023d8889fb062fc2ec699
 #### 生成文件名(name)
 
 ```php
-name(string $fileName = "", $ext = "png"): string
+name(string $fileName = "", $extension = "png", $isrepeat = false): string
 File::fileName("test", "mp4"); //../public/upload/test/20230225/822c312989aadcb439956405d93f188d.mp4
 ```
 

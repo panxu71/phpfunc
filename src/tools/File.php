@@ -9,7 +9,7 @@
 // | Author: panxu <panxu71@163.com>  
 // +----------------------------------------------------------------------
 namespace func\tools;
-
+k
 use func\Str;
 
 class File
@@ -21,8 +21,8 @@ class File
      */
     public static function path(string $location = ""): string
     {
-        $rootPath = PHP_OS == "WINNT" ? "public" . DIRECTORY_SEPARATOR : "";
-        return getcwd() . DIRECTORY_SEPARATOR . $rootPath . ($location != "" ? $location : "upload") . DIRECTORY_SEPARATOR;
+        $rootPath = PHP_OS == "WINNT" ? "public" : "";
+        return str_replace(["//", "\\"], DIRECTORY_SEPARATOR, getcwd() . DIRECTORY_SEPARATOR . $rootPath . DIRECTORY_SEPARATOR . ($location != "" ? $location : ""));
     }
 
     /**
@@ -33,7 +33,7 @@ class File
      */
     public static function folder(string $location = ""): string
     {
-        $dir = self::path($location)  . date("Ymd");
+        $dir = self::path($location);
         is_dir($dir) or mkdir(iconv("UTF-8", "GBK", $dir), 0777, true);
         return $dir . DIRECTORY_SEPARATOR;
     }
@@ -125,7 +125,8 @@ class File
     public static function upload(array $file, string $fileName = ""): string
     {
         $extension = pathinfo($file["file"]["name"])["extension"];
-        move_uploaded_file($file["file"]["tmp_name"], self::name($fileName, $extension));
+        $fileName = self::name($fileName, $extension);
+        move_uploaded_file($file["file"]["tmp_name"], $fileName);
         return $fileName;
     }
 
@@ -150,23 +151,26 @@ class File
      *
      * @param string $fileName  指定文件名
      * @param string $extension 指定文件扩展名
+     * @param string $isrepeat  相同文件是否覆盖
      * @return string
      */
-    public static function name(string $fileName = "", $ext = "png"): string
+    public static function name(string $fileName = "", $extension = "png", $isrepeat = false): string
     {
-        $strname          = Str::uuid(false, false);
-        $truename         = "$strname.$ext";
-        $dirname          = "upload";
+        $rname         = Str::uuid(false, false);
+        $dirname       = "upload" . DIRECTORY_SEPARATOR . date("Ymd") . DIRECTORY_SEPARATOR;
         if ($fileName != "") {
-            $pathinfo     = pathinfo($fileName);
-            $dirname      = isset($pathinfo["dirname"]) && $pathinfo["dirname"] != "." ? $pathinfo["dirname"] : $dirname;
-            $extension    = $pathinfo["extension"] ?? $ext;
-            $truename     = isset($pathinfo["extension"]) && $pathinfo["extension"] != "" ? $pathinfo["basename"] : rtrim($pathinfo["basename"], '.') . "." . $extension;
-            if (file_exists(self::folder($dirname) .  $truename)) {
-                $truename = "$strname.$extension";
-            }
+            $pathInfo  = pathinfo($fileName);
+            isset($pathinfo["dirname"]) && $pathinfo["dirname"] != "." && $dirname .= $pathinfo["dirname"];
+            $extension = isset($pathInfo["extension"]) ? $pathInfo["extension"] : $extension;
+            $filename  = isset($pathInfo["filename"]) ? $pathInfo["filename"] : $rname;
         }
-        return self::folder($dirname) . $truename;
+
+        self::folder($dirname);
+        $fullname      = self::path($dirname) . ($filename ?? $rname) . ".{$extension}";
+        if ($isrepeat && file_exists($fullname)) {
+            $fullname  = self::path($dirname) . "$rname.{$extension}";
+        }
+        return $fullname;
     }
 
     /**

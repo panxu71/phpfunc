@@ -37,9 +37,10 @@ class Http
      * @param string $uri
      * @return boolean
      */
-    public function check(string $uri): bool
+    public function check(string $uri, array $headers = []): bool
     {
         new Http($uri);
+        count($headers) && curl_setopt(self::$ch, CURLOPT_HTTPHEADER, $headers); //请求头
         curl_setopt(self::$ch, CURLOPT_NOBODY, true); // 不取回数据
         if (curl_exec(self::$ch) !== false) { // 发送请求如果请求没有发送失败
             return curl_getinfo(self::$ch, CURLINFO_HTTP_CODE) == 200; // 再检查http响应码是否为200
@@ -97,8 +98,10 @@ class Http
         curl_setopt(self::$ch, CURLOPT_HEADER, false); //不返回头部信息
         if (strtolower($method) != 'get') {
             curl_setopt(self::$ch, CURLOPT_POST, 1);
+        } else {
+            is_array($data) && count($data) && $data = http_build_query($data);
         }
-        $data != null && curl_setopt(self::$ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        $data != null && curl_setopt(self::$ch, CURLOPT_POSTFIELDS, $data);
         count($headers) && curl_setopt(self::$ch, CURLOPT_HTTPHEADER, $headers); //请求头
         curl_setopt(self::$ch, CURLOPT_RETURNTRANSFER, 1);  //结果是否显示出来，1不显示，0显示    
         $result = curl_exec(self::$ch);
