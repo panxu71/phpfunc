@@ -9,7 +9,7 @@
 // | Author: panxu <panxu71@163.com>  
 // +----------------------------------------------------------------------
 namespace func\tools;
-k
+
 use func\Str;
 
 class File
@@ -125,7 +125,7 @@ class File
     public static function upload(array $file, string $fileName = ""): string
     {
         $extension = pathinfo($file["file"]["name"])["extension"];
-        $fileName = self::name($fileName, $extension);
+        $fileName  = self::name($fileName, $extension);
         move_uploaded_file($file["file"]["tmp_name"], $fileName);
         return $fileName;
     }
@@ -140,7 +140,7 @@ class File
     public static function write(string $content = "", string $name = "", string $ext = "txt"): string
     {
         $fileName = self::name($name, $ext, true);
-        $file = fopen($fileName, file_exists($fileName) ? 'a' : "w") or die("Unable to open file!");
+        $file     = fopen($fileName, file_exists($fileName) ? 'a' : "w") or die("Unable to open file!");
         fwrite($file, $content);
         fclose($file);
         return realpath($fileName);
@@ -158,17 +158,13 @@ class File
     {
         $rname         = Str::uuid(false, false);
         $dirname       = "upload" . DIRECTORY_SEPARATOR . date("Ymd") . DIRECTORY_SEPARATOR;
-        if ($fileName != "") {
-            $pathInfo  = pathinfo($fileName);
-            isset($pathinfo["dirname"]) && $pathinfo["dirname"] != "." && $dirname .= $pathinfo["dirname"];
-            $extension = isset($pathInfo["extension"]) ? $pathInfo["extension"] : $extension;
-            $filename  = isset($pathInfo["filename"]) ? $pathInfo["filename"] : $rname;
-        }
-
-        self::folder($dirname);
-        $fullname      = self::path($dirname) . ($filename ?? $rname) . ".{$extension}";
+        $pathinfo      = pathinfo($fileName);
+        isset($pathinfo["dirname"]) && $pathinfo["dirname"] != "." && $dirname .= $pathinfo["dirname"];
+        $extension     = isset($pathinfo["extension"]) ? $pathinfo["extension"] : $extension;
+        $filename      = isset($pathinfo["filename"]) ? $pathinfo["filename"] : $rname;
+        $fullname      = self::folder($dirname) . ($filename ?? $rname) . ".{$extension}";
         if (!$isrepeat && file_exists($fullname)) {
-            $fullname  = self::path($dirname) . "$rname.{$extension}";
+            $fullname  = self::folder($dirname) . "$rname.{$extension}";
         }
         return $fullname;
     }
