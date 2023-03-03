@@ -53,7 +53,6 @@ class Http
      * @param string $imgUrl    远程文件url
      * @param string $location  文件存储位置
      * @return string 返回文件路径
-     * @return void
      */
     public static function wget(string $uri, string $location = ""): string
     {
