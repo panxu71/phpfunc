@@ -35,7 +35,7 @@ class File
     {
         $dir = self::path($location);
         is_dir($dir) or mkdir(iconv("UTF-8", "GBK", $dir), 0777, true);
-        return $dir . DIRECTORY_SEPARATOR;
+        return str_replace(["//", "\\"], DIRECTORY_SEPARATOR, $dir . DIRECTORY_SEPARATOR);
     }
 
     /**
