@@ -821,8 +821,15 @@ File::readTextFile("./test.txt");// a b c
 
 ```php
 //包括但不限于文本文件 .txt/.log/.md....
-write(string $content = "", string $name = "", string $ext = "txt"): string
+(string $content = "", string $name = "", bool $isrepeat = true, string $ext = "log"): string
 File::write("这是测试文字", "123.txt");// D:\Daily\project\php\tp6\123.txt
+```
+
+#### 生成文件名(name)
+
+```php
+name(string $fileName = "", string $extension = "", bool $isrepeat = false): string
+File::fileName("test", "mp4"); //../public/upload/test/20230225/822c312989aadcb439956405d93f188d.mp4
 ```
 
 #### 文件上传(upload)
@@ -837,13 +844,6 @@ if (!file_exists($file)) {
 }
 $result =  Http::curl("http://tp6.com", ['file' => new \CURLFile(realpath($file))], "POST");
 // 在域名对应的url(http://tp6.com)对应方法直接调用File::upload方法即可
-```
-
-#### 生成文件名(name)
-
-```php
-name(string $fileName = "", $extension = "png", $isrepeat = false): string
-File::fileName("test", "mp4"); //../public/upload/test/20230225/822c312989aadcb439956405d93f188d.mp4
 ```
 
 #### 解析远程图片(parseImage)

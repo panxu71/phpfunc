@@ -137,9 +137,9 @@ class File
      * @param string $content  内容
      * @return string  返回文件绝对路径
      */
-    public static function write(string $content = "", string $name = "", string $ext = "txt"): string
+    public static function write(string $content = "", string $name = "", bool $isrepeat = true, string $ext = "log"): string
     {
-        $fileName = self::name($name, $ext, true);
+        $fileName = self::name($name, $ext, $isrepeat);
         $file     = fopen($fileName, file_exists($fileName) ? 'a' : "w") or die("Unable to open file!");
         fwrite($file, $content);
         fclose($file);
@@ -154,14 +154,17 @@ class File
      * @param string $isrepeat  相同文件是否覆盖
      * @return string
      */
-    public static function name(string $fileName = "", $extension = "png", $isrepeat = false): string
+    public static function name(string $fileName = "", string $extension = "", bool $isrepeat = false): string
     {
         $rname         = Str::uuid(false, false);
         $dirname       = "upload" . DIRECTORY_SEPARATOR . date("Ymd") . DIRECTORY_SEPARATOR;
         $pathinfo      = pathinfo($fileName);
         isset($pathinfo["dirname"]) && $pathinfo["dirname"] != "." && $dirname .= $pathinfo["dirname"];
         $extension     = isset($pathinfo["extension"]) ? $pathinfo["extension"] : $extension;
-        $filename      = isset($pathinfo["filename"]) ? $pathinfo["filename"] : $rname;
+        if ($extension == "") {
+            return "文件扩展名不存在";
+        }
+        $filename      = isset($pathinfo["filename"]) && $pathinfo["filename"] != "" ? $pathinfo["filename"] : $rname;
         $fullname      = self::folder($dirname) . ($filename ?? $rname) . ".{$extension}";
         if (!$isrepeat && file_exists($fullname)) {
             $fullname  = self::folder($dirname) . "$rname.{$extension}";
