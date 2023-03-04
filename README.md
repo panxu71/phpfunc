@@ -854,6 +854,14 @@ parseImage(string $imgUrl = "")
 File::parseImage("https://xx.cn/g7/M00/01/0A/a.jpg");
 ```
 
+#### 图片转base64(imgToBase64)
+
+```php
+// 支持远程图片
+imgToBase64(string $image): string
+File::imgToBase64("https://xx.cn/g7/M00/01/0A/a.jpg");
+```
+
 ### 网络请求类工具（Http）
 
 ```php

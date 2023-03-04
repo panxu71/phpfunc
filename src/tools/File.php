@@ -183,4 +183,30 @@ class File
         header('Content-type: image/jpg');
         exit(Http::fileToBinaryData($imgUrl));
     }
+
+    /**
+     * 图片转base64(支持远程图片)
+     *
+     * @param string $image
+     * @return string
+     */
+    public static function imgToBase64(string $image): string
+    {
+        if (preg_match("/^https|http/", $image)) {
+            if (!(new Http)->check($image)) {
+                return "请求失败";
+            }
+            $content = Http::fileToBinaryData($image);
+        }
+        if (!isset($content)) {
+            if (!file_exists($image)) { // 判断文件是否存在
+                return "文件不存在";
+            }
+            if ($fp = fopen($image, "rb", 0)) {
+                $content = fread($fp, filesize($image));
+                fclose($fp);;
+            }
+        }
+        return str_replace(PHP_EOL, '', chunk_split(base64_encode($content)));
+    }
 }
