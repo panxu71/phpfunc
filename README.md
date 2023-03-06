@@ -854,6 +854,14 @@ parseImage(string $imgUrl = "")
 File::parseImage("https://xx.cn/g7/M00/01/0A/a.jpg");
 ```
 
+#### 获取文件扩展名(extension)
+
+```php
+extension(string $uri = ""): string
+File::extension("https://xx.cn/g7/M00/01/0A/a.jpg"); // jpg
+File::extension("./0A/a.svg"); // svg
+```
+
 #### 图片转base64(imgToBase64)
 
 ```php

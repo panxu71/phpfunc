@@ -185,6 +185,41 @@ class File
     }
 
     /**
+     * 返回文件扩展名
+     * 支持远程文件
+     * @param string $uri 文件资源路径
+     * @return string     文件扩展名
+     */
+    public static function extension(string $uri = ""): string
+    {
+        if ($uri  == "") {
+            return "";
+        }
+        $uriInfo   = parse_url($uri);
+        $extension = isset($uriInfo["path"]) ? (pathinfo($uriInfo["path"], PATHINFO_EXTENSION) ?? "") : "";
+        if ($extension != "") {
+            return $extension;
+        }
+        // 获取本地文件扩展名
+        $contentType = getimagesize($uri)["mime"] ?? "";
+        // 获取远程文件扩展名
+        if ($contentType == "" && preg_match("/^https|http/", $uri)) {
+            $http = (new Http)->check($uri);
+            if (!isset($http["http_code"]) || $http["http_code"] != "200") {
+                return "";
+            }
+            $contentType = $http["content_type"];
+        }
+        if (strpos($contentType, 'image/') !== false && $contentType != "gif") {
+            $extension = "png";
+        }
+        if (strpos($contentType, 'video/') !== false) {
+            $extension = "mp4";
+        }
+        return $extension;
+    }
+
+    /**
      * 图片转base64(支持远程图片)
      *
      * @param string $image
