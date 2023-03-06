@@ -56,22 +56,12 @@ class Http
      */
     public static function wget(string $uri, string $location = ""): string
     {
-        if (!(new self)->check($uri)) {
-            return "请求失败";
+        $http = (new self)->check($uri);
+        if (!isset($http["content_type"]) || $http["http_code"] != "200") {
+            return ""; //请求失败
         }
         curl_setopt(self::$ch, CURLOPT_NOBODY, false);
-        // 检查资源
-        $httpInfo  = curl_getinfo(self::$ch);
-        if ($httpInfo["http_code"] != "200") {
-            return "下载失败"; // "下载失败，请求耗时" . $httpInfo['total_time'] . '秒'
-        }
-        // 获取远程资源类型
-        $extension     = pathinfo($uri, PATHINFO_EXTENSION);
-        if ($extension == "" && isset($httpInfo["content_type"])) {
-            strpos($httpInfo["content_type"], 'image/') !== false && $extension = "png";
-            strpos($httpInfo["content_type"], 'vodeo/') !== false && $extension = "mp4";
-        }
-        $fileName = File::name($location, $extension);
+        $fileName = File::name($location, File::extension($uri));
         $fp       = fopen($fileName, 'w+');
         curl_setopt(self::$ch, CURLOPT_FILE, $fp);
         curl_exec(self::$ch);
