@@ -203,7 +203,7 @@ class File
             }
         } else {
             // 区分绝对路径与相对路径
-            $uri = !file_exists($uri) ? self::path() : "" . $uri;
+            $uri = (!file_exists($uri) ? self::path() : "") . $uri;
             if (!file_exists($uri)) {
                 return [];
             }
