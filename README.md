@@ -862,6 +862,15 @@ File::extension("https://xx.cn/g7/M00/01/0A/a.jpg"); // jpg
 File::extension("./0A/a.svg"); // svg
 ```
 
+#### 文件转二进制流(fileToBinaryData)
+
+```php
+// 支持远程图片
+fileToBinaryData(string $file): string
+File::fileToBinaryData("D:\\desktop\\material\\background\\01梦想.png")
+File::fileToBinaryData("https://www.baidu.com/img/pcdoodle_2a77789e1a67227122be09c5be16fe46.png")
+```
+
 #### 图片转base64(imgToBase64)
 
 ```php
@@ -895,13 +904,6 @@ Http::wget("https://xx.cn/g7/M00/01/0A/a.jpg"); //D:\work\project\custom\project
 ```php
 curl(string $url, array|null $data = null, string $method = "GET", array $headers = [])
 Http::curl("https://xx.cn/g7/M00/01/0A/a.jpg"); 
-```
-
-#### 远程文件转二进制流(fileToBinaryData)
-
-```php
-fileToBinaryData(string $url = "")
-Http::fileToBinaryData("https://xx.cn/g7/M00/01/0A/a.jpg"); 
 ```
 
 |版本 |日期 |说明  |

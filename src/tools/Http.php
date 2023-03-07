@@ -35,14 +35,15 @@ class Http
      * 检测请求链接
      *
      * @param string $uri
-     * @return boolean
+     * @return array
      */
-    public function check(string $uri, array $headers = []): bool
+    public function check(string $uri, array $headers = []): array
     {
         new Http($uri);
         count($headers) && curl_setopt(self::$ch, CURLOPT_HTTPHEADER, $headers); //请求头
         curl_setopt(self::$ch, CURLOPT_NOBODY, true); // 不取回数据
         if (curl_exec(self::$ch) !== false) { // 发送请求如果请求没有发送失败
+            return curl_getinfo(self::$ch);
             return curl_getinfo(self::$ch, CURLINFO_HTTP_CODE) == 200; // 再检查http响应码是否为200
         }
     }
@@ -96,22 +97,5 @@ class Http
         $result = curl_exec(self::$ch);
         curl_close(self::$ch);
         return $result;
-    }
-
-    /**
-     * 远程文件转二进制流
-     *
-     * @param string $fileUri
-     * @return void
-     */
-    public static function fileToBinaryData(string $url = "")
-    {
-        if (!(new self)->check($url)) {
-            return "请求失败";
-        }
-        if (!preg_match("/^https|http/", $url)) {
-            return "远程文件不存在";
-        }
-        return self::curl($url, null, "GET", ["Host:" . parse_url($url)['host']]);
     }
 }

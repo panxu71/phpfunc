@@ -181,7 +181,7 @@ class File
     public static function parseImage(string $imgUrl = "")
     {
         header('Content-type: image/jpg');
-        exit(Http::fileToBinaryData($imgUrl));
+        exit(self::fileToBinaryData($imgUrl));
     }
 
     /**
@@ -220,29 +220,40 @@ class File
     }
 
     /**
+     * 文件转二进制流
+     *
+     * @param string $file
+     * @return string 
+     */
+    public static function fileToBinaryData(string $file): string
+    {
+        if (preg_match("/^https|http/", $file)) {
+            $http = (new Http)->check($file);
+            if (!isset($http["content_type"]) || $http["http_code"] != "200") {
+                return ""; //请求失败
+            }
+            $content = Http::curl($file, null, "GET", ["Host:" . parse_url($file)['host']]);
+        }
+        if (!isset($content)) {
+            if (!file_exists($file)) { // 判断文件是否存在
+                return ""; //文件不存在
+            }
+            if ($fp = fopen($file, "rb", 0)) {
+                $content = fread($fp, filesize($file));
+                fclose($fp);
+            }
+        }
+        return $content;
+    }
+
+    /**
      * 图片转base64(支持远程图片)
      *
      * @param string $image
      * @return string
      */
-    public static function imgToBase64(string $image): string
+    public static function imgToBase64(string $content): string
     {
-        if (preg_match("/^https|http/", $image)) {
-            $http = (new Http)->check($image);
-            if (!isset($http["content_type"]) || $http["http_code"] != "200") {
-                return ""; //请求失败
-            }
-            $content = Http::fileToBinaryData($image);
-        }
-        if (!isset($content)) {
-            if (!file_exists($image)) { // 判断文件是否存在
-                return ""; //文件不存在
-            }
-            if ($fp = fopen($image, "rb", 0)) {
-                $content = fread($fp, filesize($image));
-                fclose($fp);
-            }
-        }
-        return str_replace(PHP_EOL, '', chunk_split(base64_encode($content)));
+        return str_replace(PHP_EOL, '', chunk_split(base64_encode(self::fileToBinaryData($content))));
     }
 }
