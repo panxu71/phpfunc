@@ -62,7 +62,7 @@ class Http
             return ""; //请求失败
         }
         curl_setopt(self::$ch, CURLOPT_NOBODY, false);
-        $fileName = File::name($location, File::extension($uri));
+        $fileName = File::name($location, File::contentType($uri)["extension"]);
         $fp       = fopen($fileName, 'w+');
         curl_setopt(self::$ch, CURLOPT_FILE, $fp);
         curl_exec(self::$ch);

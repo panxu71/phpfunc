@@ -185,38 +185,46 @@ class File
     }
 
     /**
-     * 返回文件扩展名
+     * 返回文件类型
      * 支持远程文件
      * @param string $uri 文件资源路径
-     * @return string     文件扩展名
+     * @return array      文件类型数组
      */
-    public static function extension(string $uri = ""): string
+    public static function contentType(string $uri = ""): array
     {
         if ($uri  == "") {
             return "";
         }
-        $uriInfo   = parse_url($uri);
-        $extension = isset($uriInfo["path"]) ? (pathinfo($uriInfo["path"], PATHINFO_EXTENSION) ?? "") : "";
-        if ($extension != "") {
-            return $extension;
-        }
-        // 获取本地文件扩展名
-        $contentType = getimagesize($uri)["mime"] ?? "";
         // 获取远程文件扩展名
-        if ($contentType == "" && preg_match("/^https|http/", $uri)) {
+        if (preg_match("/^https|http/", $uri)) {
             $http = (new Http)->check($uri);
-            if (!isset($http["http_code"]) || $http["http_code"] != "200") {
-                return "";
+            if (isset($http["http_code"]) && $http["http_code"] == "200") {
+                $data['type'] = $http["content_type"];
             }
-            $contentType = $http["content_type"];
+        } else {
+            // 区分绝对路径与相对路径
+            $uri = !file_exists($uri) ? self::path() : "" . $uri;
+            if (!file_exists($uri)) {
+                return [];
+            }
+            $uriInfo           = parse_url($uri);
+            $data["extension"] = isset($uriInfo["path"]) ? (pathinfo($uriInfo["path"], PATHINFO_EXTENSION) ?? "") : "";
+            $data["type"]      = mime_content_type($uri) ?? "";
         }
-        if (strpos($contentType, 'image/') !== false && $contentType != "gif") {
-            $extension = "png";
+
+        if (!isset($data["type"]) || $data["type"] == "") {
+            return [];
         }
-        if (strpos($contentType, 'video/') !== false) {
-            $extension = "mp4";
+
+        if (!isset($data["extension"]) || $data["extension"] == "") {
+            if (strpos($data["type"], 'image/') !== false && $data["type"] != "gif") {
+                $data["extension"] = "png";
+            }
+            if (strpos($data["type"], 'video/') !== false) {
+                $data["extension"] = "mp4";
+            }
         }
-        return $extension;
+        return $data;
     }
 
     /**

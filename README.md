@@ -854,12 +854,22 @@ parseImage(string $imgUrl = "")
 File::parseImage("https://xx.cn/g7/M00/01/0A/a.jpg");
 ```
 
-#### 获取文件扩展名(extension)
+#### 返回文件类型(extension)
 
 ```php
-extension(string $uri = ""): string
-File::extension("https://xx.cn/g7/M00/01/0A/a.jpg"); // jpg
-File::extension("./0A/a.svg"); // svg
+contentType(string $uri = ""): array
+File::contentType("https://xx.cn/g7/M00/01/0A/a.jpg"); 
+// Array
+// (
+//     [type] => video/mp4
+//     [extension] => mp4
+// )
+File::extension("./0A/a.png");
+// Array
+// (
+//     [extension] => png
+//     [type] => image/png
+// )
 ```
 
 #### 文件转二进制流(fileToBinaryData)
