@@ -854,7 +854,7 @@ parseImage(string $imgUrl = "")
 File::parseImage("https://xx.cn/g7/M00/01/0A/a.jpg");
 ```
 
-#### 返回文件类型(extension)
+#### 返回文件类型(contentType)
 
 ```php
 contentType(string $uri = ""): array
