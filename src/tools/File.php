@@ -217,6 +217,7 @@ class File
         }
 
         if (!isset($data["extension"]) || $data["extension"] == "") {
+            $data["extension"] = "未匹配";
             if (strpos($data["type"], 'image/') !== false && $data["type"] != "gif") {
                 $data["extension"] = "png";
             }
