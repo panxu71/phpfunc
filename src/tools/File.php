@@ -234,14 +234,17 @@ class File
      * @param string $file
      * @return string 
      */
-    public static function fileToBinaryData(string $file): string
+    public static function fileToBinaryData(string $file)
     {
         if (preg_match("/^https|http/", $file)) {
-            $http = (new Http)->check($file);
+            if ($header = parse_url($file)['host'] ?? false) {
+                $headers = ["Host:{$header}", "Referer:{$header}"];
+            }
+            $http = (new Http)->check($file, isset($headers) ? $headers : []);
             if (!isset($http["content_type"]) || $http["http_code"] != "200") {
                 return ""; //请求失败
             }
-            $content = Http::curl($file, null, "GET", ["Host:" . parse_url($file)['host']]);
+            $content = Http::curl($file, null, "GET", isset($headers) ? $headers : []);
         }
         if (!isset($content)) {
             if (!file_exists($file)) { // 判断文件是否存在
