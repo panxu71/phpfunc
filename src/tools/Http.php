@@ -80,7 +80,7 @@ class Http
      * @param array $headers
      * @return void
      */
-    public static function curl(string $url, array|null $data = null, string $method = "GET", array $headers = [])
+    public static function curl(string $url, array|string|null $data = null, string $method = "GET", array $headers = [])
     {
         new Http($url);
         curl_setopt(self::$ch, CURLOPT_NOBODY, false);
