@@ -103,7 +103,7 @@ randomPhone($operator = null)
 Str::randomPhone(); // 18952373556
 ```
 
-#### 返回随机身份证号(randomCardId)
+#### 返回随机shenfenzheng号(randomCardId)
 
 ```php
 randomCardId()
@@ -148,7 +148,7 @@ Str::stringToArray("张a三");
 
 ```php
 // 支持指定类型及自定义规则脱敏
-// 类型($type) [1姓名,2出生日期,3手机号,4身份证,5银行卡号,6电子邮箱]
+// 类型($type) [1姓名,2出生日期,3手机号,4shenfenzheng,5yinhangka号,6电子邮箱]
 dataMasking(string $string = "", int $type = 0, array $index = [], string $replace = "*")
 
 Str::dataMasking(Str::randomName()['username'], 1);//司马**
@@ -637,7 +637,7 @@ Random::dates();
 // )
 ```
 
-#### 随机身份证号(identityCard)
+#### 随机shenfenzheng号(identityCard)
 
 ```php
 // 支持指定地区、性别、生日，默认随机近80年
@@ -671,7 +671,7 @@ avatar()
 Random::avatar(); // https://api.multiavatar.com/e3428cafedb61c5e116fe526ad6bfb3f.png
 ```
 
-#### 随机银行卡号(bankCard)
+#### 随机yinhangka号(bankCard)
 
 ```php
 // 注意：仅供学习参考，请不要用于非法用途，否则后果自负
