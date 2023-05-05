@@ -85,7 +85,7 @@ class Random
         $special && $stringArray   = array_merge($stringArray, $stringlDatas['special']);
         shuffle($stringArray); //打乱数组顺序
         $string = "";
-        for ($i = 0; $i <= $len; $i++) {
+        for ($i = 1; $i <= $len; $i++) {
             $string .= $stringArray[array_rand($stringArray, 1)];
             !$i && $string == "0" && $string += 1; //保证不以0开头
         }

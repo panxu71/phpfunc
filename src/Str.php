@@ -61,7 +61,7 @@ class Str
         shuffle($numbers); //打乱数组顺序
         // $length      = $length > count($numbers) ? count($numbers) : $length;
         $string      = '';
-        for ($i = 0; $i < $length; $i++) {
+        for ($i = 1; $i < $length; $i++) {
             $string .= $numbers[mt_rand(0, count($numbers) - 1)]; //随机取出一位
             !$i && $string == "0" && $string += 1; //保证不以0开头
         }

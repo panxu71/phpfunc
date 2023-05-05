@@ -11,6 +11,7 @@
 namespace func\tools;
 
 use func\Str;
+use func\tools\Http;
 
 class File
 {
@@ -178,10 +179,24 @@ class File
      * @param string $imgUrl   图片路径
      * @return void
      */
-    public static function parseImage(string $imgUrl = "")
+    public static function parseImage(string $imgUrl = "", array $header = [])
     {
         header('Content-type: image/jpg');
-        exit(self::fileToBinaryData($imgUrl));
+        exit(self::fileToBinaryData($imgUrl, $header));
+    }
+
+    /**
+     * 解析媒体文件
+     *
+     * @param string $url
+     * @param array $header
+     * @param string $type
+     * @return void
+     */
+    public static function parseMedia(string $url = "", array $header = [], $type = "image/jpg")
+    {
+        header("Content-type: $type");
+        exit(self::fileToBinaryData($url, $header));
     }
 
     /**
@@ -203,7 +218,7 @@ class File
             }
         } else {
             // 区分绝对路径与相对路径
-            $uri = (!file_exists($uri) ? self::path() : "") . $uri;
+            $uri = !file_exists($uri) ? self::path() : "" . $uri;
             if (!file_exists($uri)) {
                 return [];
             }
@@ -234,11 +249,13 @@ class File
      * @param string $file
      * @return string 
      */
-    public static function fileToBinaryData(string $file)
+    public static function fileToBinaryData(string $file = "", array $header = [])
     {
         if (preg_match("/^https|http/", $file)) {
-            if ($header = parse_url($file)['host'] ?? false) {
-                $headers = ["Host:{$header}", "Referer:{$header}"];
+            $fileInfo = parse_url($file);
+            $headers = $header;
+            if (!count($header) && isset($fileInfo["host"])) {
+                $headers = ["Host:{$fileInfo["host"]}", "Referer:" . ($fileInfo["scheme"] ?? "") . "://" . $fileInfo["host"]];
             }
             $http = (new Http)->check($file, isset($headers) ? $headers : []);
             if (!isset($http["content_type"]) || $http["http_code"] != "200") {

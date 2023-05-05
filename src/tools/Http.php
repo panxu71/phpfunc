@@ -80,18 +80,34 @@ class Http
      * @param array $headers
      * @return void
      */
-    public static function curl(string $url, array|string|null $data = null, string $method = "GET", array $headers = [])
+    public static function curl(string $url, array|string|null $data = null, string $method = "GET", array $headers = [], bool $response = false)
     {
         new Http($url);
         curl_setopt(self::$ch, CURLOPT_NOBODY, false);
+        switch ($method) {
+            case "GET":
+                if (is_array($data) && count($data)) {
+                    $url .= (!preg_match("/\?/", $url) ? "?" : "&") . http_build_query($data);
+                }
+                curl_setopt(self::$ch, CURLOPT_HTTPGET, true);
+                break;
+            case "POST":
+                curl_setopt(self::$ch, CURLOPT_POST, 1);
+                break;
+            case "PUT":
+                curl_setopt(self::$ch, CURLOPT_CUSTOMREQUEST, "PUT");
+                break;
+            case "DELETE":
+                curl_setopt(self::$ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+                break;
+        }
         curl_setopt(self::$ch, CURLOPT_URL, $url);
         curl_setopt(self::$ch, CURLOPT_HEADER, false); //不返回头部信息
-        if (strtolower($method) != 'get') {
-            curl_setopt(self::$ch, CURLOPT_POST, 1);
-        } else {
-            is_array($data) && count($data) && $data = http_build_query($data);
+        // 是否获取请求头
+        if ($response) {
+            curl_setopt(self::$ch, CURLOPT_HEADER, TRUE);
         }
-        $data != null && curl_setopt(self::$ch, CURLOPT_POSTFIELDS, $data);
+        $data != null && curl_setopt(self::$ch, CURLOPT_POSTFIELDS, is_array($data) ? json_encode($data, JSON_UNESCAPED_UNICODE) : $data);
         count($headers) && curl_setopt(self::$ch, CURLOPT_HTTPHEADER, $headers); //请求头
         curl_setopt(self::$ch, CURLOPT_RETURNTRANSFER, 1);  //结果是否显示出来，1不显示，0显示    
         $result = curl_exec(self::$ch);
