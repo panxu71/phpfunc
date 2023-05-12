@@ -849,9 +849,17 @@ $result =  Http::curl("http://tp6.com", ['file' => new \CURLFile(realpath($file)
 #### 解析远程图片(parseImage)
 
 ```php
-// 解决临时引用远程图片显示“未经允许不可引用”，注意该方法主要是用于临时测试，禁止用于图片盗链
+// 解决临时引用远程图片显示“未经允许不可引用”，注意该方法主要是用于临时测试，禁止用于正式
 parseImage(string $imgUrl = "")
 File::parseImage("https://xx.cn/g7/M00/01/0A/a.jpg");
+```
+
+#### 解析远程媒体(parseMedia)
+
+```php
+// 解决临时引用远程媒体文件显示“未经允许不可引用”，注意该方法主要是用于临时测试，禁止用于正式
+parseMedia(string $url = "", array $header = [], $type = "image/jpg")
+File::parseMedia("https://xx.cn/g7/M00/01/0A/a.jpg");
 ```
 
 #### 返回文件类型(contentType)
