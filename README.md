@@ -230,6 +230,21 @@ Str::loadHtml((string)$html, "//div[contains(@class,'newscontent')]");
 // )
 ```
 
+#### Discuz经典加密解密函数(encryption)
+
+```php
+// 注意该函数加密后的字符串可能存在url编码的问题，为了报错加密解密不出错可以按照如下操作：
+// 加密前使用 rawurlencode编码
+// 解密前使用 rawurldecode解码
+encryption(string $string = "", string $operation = 'DECODE', string $key = '', int $expiry = 0): string
+// 加密
+Str::encryption("123", "ENCODE"); 
+// b2c0jCtdjLWCz3QoHav73nXNhDVKAY1dOetmYr9gdN8
+// 解密
+Str::encryption("123", "DECODE"); 
+// 123
+```
+
 ### 数组函数说明
 
 ```php
