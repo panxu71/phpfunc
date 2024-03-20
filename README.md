@@ -226,6 +226,14 @@ sliceBetween(string $str, string $begin, string $end): string
 Str::sliceBetween("whttps://panxu.netvw123v", "w", "v"); //https://panxu.net
 ```
 
+#### 英文字母表(englishAlphabets)
+
+```php
+englishAlphabets(bool $lowercase = false): array
+Str::englishAlphabets(); //['A','B',...,'Z']
+Str::englishAlphabets(true); //['a','b',...,'z']
+```
+
 #### 解析html页面(loadHtml)
 
 ```php

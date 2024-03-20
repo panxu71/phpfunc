@@ -600,6 +600,22 @@ class Str
     }
 
     /**
+     * 英文字母表(26)
+     *
+     * @param boolean $lowercase 是否小写
+     * @return array
+     */
+    public static function englishAlphabets(bool $lowercase = false): array
+    {
+        $letters = [];
+        for ($i = 65; $i < 91; $i++) {
+            $letter = strtoupper(chr($i));
+            $letters[] = $lowercase ? strtolower($letter) : $letter;
+        }
+        return $letters;
+    }
+
+    /**
      * 解析html页面
      *
      * @param string $html  html DoM
