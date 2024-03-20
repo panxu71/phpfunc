@@ -212,11 +212,18 @@ dencrypt(string $password, string $hash): bool
 Str::dencrypt("zhangsan", '$2y$12$yt9zq7k8HkU7PxcXOJH.fez3DDyrHmJL5igwgbWAbTobJGk0czWKS'); //true
 ```
 
-#### 按符号截取字符串的指定部分(cutStrSpecifySign)
+#### 按符号截取字符串的指定部分(sliceStrSpecifySign)
 
 ```php
-cutStrSpecifySign(string $str, string $sign, int $number): string
-Str::cutStrSpecifySign("123/456/789/236", "/", 3); //236
+sliceStrSpecifySign(string $str, string $sign, int $number): string
+Str::sliceStrSpecifySign("123/456/789/236", "/", 3); //236
+```
+
+#### 截取指定两个字符之间字符串(sliceStrSpecifySign)
+
+```php
+sliceBetween(string $str, string $begin, string $end): string
+Str::sliceBetween("whttps://panxu.netvw123v", "w", "v"); //https://panxu.net
 ```
 
 #### 解析html页面(loadHtml)

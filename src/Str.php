@@ -541,7 +541,7 @@ class Str
      * @param integer $number 如是正数以0为起点从左向右截 负数则从右向左截
      * @return string         返回截取的内容
      */
-    public static function cutStrSpecifySign(string $str, string $sign, int $number): string
+    public static function sliceStrSpecifySign(string $str, string $sign, int $number): string
     {
         $strArray = explode($sign, $str);
         $length   = count($strArray);
@@ -553,6 +553,50 @@ class Str
             $number < $length && $str = $strArray[$number];
         }
         return $str;
+    }
+
+    /**
+     * 截取指定两个字符之间字符串，默认字符集为utf-8 
+     * @param string $str    需要截取的字符串
+     * @param string $begin  开始字符串
+     * @param string $end    结束字符串
+     * @return string
+     */
+    public static function sliceBetween(string $str, string $begin, string $end): string
+    {
+        $result = '';
+        $beginPos = $endPos = 0;
+        // 如果开始字符串和结束字符串都不为空
+        if ($begin !== '' && $end !== '') {
+            // 查找第一次出现的结束字符串
+            $endPos = mb_strpos($str, $end);
+            // 如果找到了结束字符串
+            if ($endPos !== false) {
+                // 逆向查找结束字符串之前的开始字符串
+                $tempStr = mb_substr($str, 0, $endPos);
+                $beginPos = mb_strrpos($tempStr, $begin);
+                if ($beginPos !== false) {
+                    return mb_substr($tempStr, $beginPos + mb_strlen($begin));
+                }
+            }
+        }
+
+        // 如果只有开始字符串
+        if ($begin !== '' && $end == '') {
+            $beginPos = mb_strrpos($str, $begin);
+            if ($beginPos !== false) {
+                return mb_substr($str, $beginPos + mb_strlen($begin));
+            }
+        }
+
+        // 如果只有结束字符串
+        if ($begin == '' && $end !== '') {
+            $endPos = mb_strpos($str, $end);
+            if ($endPos !== false) {
+                return mb_substr($str, 0, $endPos);
+            }
+        }
+        return $result;
     }
 
     /**
